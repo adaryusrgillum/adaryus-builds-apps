@@ -57,12 +57,18 @@ internal enum class BuildRequestType(
     )
 }
 
+internal enum class PosterStyle {
+    Builder,
+    Catalog,
+    Motion
+}
+
 internal data class AppCategory(
     val title: String,
     val summary: String,
     val features: List<String>,
     val icon: ImageVector,
-    val imageRes: Int,
+    val posterStyle: PosterStyle,
     val accentLabel: String,
     val requestType: BuildRequestType
 )
@@ -78,7 +84,7 @@ internal data class ShowcaseCard(
     val title: String,
     val summary: String,
     val tags: List<String>,
-    val imageRes: Int
+    val posterStyle: PosterStyle
 )
 
 internal data class StudioHighlight(
@@ -98,7 +104,7 @@ internal val appCategories = listOf(
         summary = "Operational apps for teams that need dashboards, approvals, reports, and daily workflows in one clean mobile experience.",
         features = listOf("Dashboards", "Role-based views", "Reports", "Task queues"),
         icon = Icons.Outlined.Business,
-        imageRes = R.drawable.adaryus_poster_builder,
+        posterStyle = PosterStyle.Builder,
         accentLabel = "Admin-first",
         requestType = BuildRequestType.BusinessSuite
     ),
@@ -107,7 +113,7 @@ internal val appCategories = listOf(
         summary = "Customer-facing apps that make browsing, booking, product discovery, and checkout feel fast and premium.",
         features = listOf("Catalogs", "Cart flow", "Offers", "Order tracking"),
         icon = Icons.Outlined.ShoppingCart,
-        imageRes = R.drawable.adaryus_poster_catalog,
+        posterStyle = PosterStyle.Catalog,
         accentLabel = "Conversion-ready",
         requestType = BuildRequestType.Storefront
     ),
@@ -116,7 +122,7 @@ internal val appCategories = listOf(
         summary = "Visual experiences for reels, video feeds, music, podcasts, or highlight-driven storytelling.",
         features = listOf("Reels", "Collections", "Highlights", "Trending rows"),
         icon = Icons.Outlined.Movie,
-        imageRes = R.drawable.adaryus_poster_motion,
+        posterStyle = PosterStyle.Motion,
         accentLabel = "Motion-heavy",
         requestType = BuildRequestType.MediaHub
     ),
@@ -125,7 +131,7 @@ internal val appCategories = listOf(
         summary = "Focused apps for scanning, converting, tracking, or simplifying one task exceptionally well.",
         features = listOf("Scanners", "Offline tools", "Shortcuts", "Quick actions"),
         icon = Icons.Outlined.Build,
-        imageRes = R.drawable.adaryus_poster_builder,
+        posterStyle = PosterStyle.Builder,
         accentLabel = "Fast utility",
         requestType = BuildRequestType.UtilityTool
     ),
@@ -134,7 +140,7 @@ internal val appCategories = listOf(
         summary = "Structured learning flows that present lessons, progress, certificates, and guided practice cleanly on mobile.",
         features = listOf("Lessons", "Quizzes", "Progress", "Certificates"),
         icon = Icons.Outlined.School,
-        imageRes = R.drawable.adaryus_poster_catalog,
+        posterStyle = PosterStyle.Catalog,
         accentLabel = "Growth-driven",
         requestType = BuildRequestType.LearningApp
     ),
@@ -143,7 +149,7 @@ internal val appCategories = listOf(
         summary = "High-clarity apps for alerts, verification, monitoring, secure access, and device-aware workflows.",
         features = listOf("Alerts", "Identity", "Monitoring", "Control panels"),
         icon = Icons.Outlined.Security,
-        imageRes = R.drawable.adaryus_poster_motion,
+        posterStyle = PosterStyle.Motion,
         accentLabel = "Protected UI",
         requestType = BuildRequestType.SecurePlatform
     )
@@ -161,19 +167,19 @@ internal val showcaseCards = listOf(
         title = "Command Center",
         summary = "A control-heavy layout with live stats, bold framing, and fast-action panels for operational work.",
         tags = listOf("Analytics", "Admin", "Approvals"),
-        imageRes = R.drawable.adaryus_poster_builder
+        posterStyle = PosterStyle.Builder
     ),
     ShowcaseCard(
         title = "Visual Catalog",
         summary = "A clean, high-contrast store view that keeps products, cards, and filters easy to scan on Samsung screens.",
         tags = listOf("Products", "Offers", "Checkout"),
-        imageRes = R.drawable.adaryus_poster_catalog
+        posterStyle = PosterStyle.Catalog
     ),
     ShowcaseCard(
         title = "Motion Feed",
         summary = "A dramatic media surface with highlight blocks, animated rhythm, and strong visual hierarchy.",
         tags = listOf("Reels", "Media", "Discovery"),
-        imageRes = R.drawable.adaryus_poster_motion
+        posterStyle = PosterStyle.Motion
     )
 )
 

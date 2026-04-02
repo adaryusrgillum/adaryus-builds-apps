@@ -10,7 +10,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,8 +40,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -52,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import com.agentic.android.ActionRow
 import com.agentic.android.BuildRequestType
 import com.agentic.android.InfoBadge
+import com.agentic.android.PosterArtwork
+import com.agentic.android.PosterStyle
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
@@ -309,14 +308,13 @@ private fun HeroPoster(modifier: Modifier, compact: Boolean) {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.58f)),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.18f))
     ) {
-        Image(
-            painter = painterResource(id = com.agentic.android.R.drawable.adaryus_poster_builder),
-            contentDescription = "Adaryus Builds hero artwork",
+        PosterArtwork(
+            style = PosterStyle.Builder,
+            title = "Adaryus Builds Apps",
+            badge = "Samsung-ready",
             modifier = Modifier
                 .fillMaxWidth()
                 .height(if (compact) 176.dp else 238.dp)
-                .clip(RoundedCornerShape(26.dp)),
-            contentScale = ContentScale.Crop
         )
     }
 }
@@ -332,7 +330,7 @@ private fun PosterGallerySection(layout: ResponsiveLayout) {
                         title = card.title,
                         summary = card.summary,
                         tags = card.tags,
-                        imageRes = card.imageRes,
+                        posterStyle = card.posterStyle,
                         modifier = Modifier.weight(1f),
                         imageHeight = layout.photoHeight + 16.dp
                     )
@@ -344,7 +342,7 @@ private fun PosterGallerySection(layout: ResponsiveLayout) {
                     title = card.title,
                     summary = card.summary,
                     tags = card.tags,
-                    imageRes = card.imageRes,
+                    posterStyle = card.posterStyle,
                     modifier = Modifier.fillMaxWidth(),
                     imageHeight = layout.photoHeight + 12.dp
                 )
@@ -358,7 +356,7 @@ private fun PosterCard(
     title: String,
     summary: String,
     tags: List<String>,
-    imageRes: Int,
+    posterStyle: PosterStyle,
     modifier: Modifier = Modifier,
     imageHeight: androidx.compose.ui.unit.Dp
 ) {
@@ -369,14 +367,13 @@ private fun PosterCard(
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Image(
-                painter = painterResource(id = imageRes),
-                contentDescription = title,
+            PosterArtwork(
+                style = posterStyle,
+                title = title,
+                badge = tags.firstOrNull() ?: "Feature",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(imageHeight)
-                    .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
-                contentScale = ContentScale.Crop
             )
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),

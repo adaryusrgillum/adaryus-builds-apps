@@ -9,7 +9,6 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,11 +34,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.BuildRequestType
+import com.agentic.android.PosterArtwork
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
@@ -104,13 +102,14 @@ private fun MotionDeckSection(onOpenRequest: (BuildRequestType) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(228.dp)
-                .clip(RoundedCornerShape(24.dp))
         ) {
-            Image(
-                painter = painterResource(id = com.agentic.android.R.drawable.adaryus_poster_motion),
-                contentDescription = "Animated showcase poster",
-                modifier = Modifier.fillMaxWidth().height(228.dp),
-                contentScale = ContentScale.Crop
+            PosterArtwork(
+                style = com.agentic.android.PosterStyle.Motion,
+                title = "Animated Motion Deck",
+                badge = "Live",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(228.dp)
             )
             Box(
                 modifier = Modifier
@@ -201,14 +200,13 @@ private fun ShowcaseCard(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Image(
-                painter = painterResource(id = item.imageRes),
-                contentDescription = item.title,
+            PosterArtwork(
+                style = item.posterStyle,
+                title = item.title,
+                badge = item.tags.firstOrNull() ?: "Board",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp)
-                    .clip(RoundedCornerShape(20.dp)),
-                contentScale = ContentScale.Crop
             )
             Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(item.summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
