@@ -1,14 +1,5 @@
 package com.agentic.android.screens
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,42 +9,39 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.agentic.android.ActionRow
 import com.agentic.android.BuildRequestType
 import com.agentic.android.InfoBadge
+import com.agentic.android.KoiScene
+import com.agentic.android.MetricBadge
 import com.agentic.android.PosterArtwork
 import com.agentic.android.PosterStyle
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
+import com.agentic.android.heroKoiSpec
 import com.agentic.android.homeQuickActions
 import com.agentic.android.showcaseCards
 import com.agentic.android.studioHighlights
@@ -62,6 +50,7 @@ import com.agentic.android.studioHighlights
 internal fun HomeScreen(
     layout: ResponsiveLayout,
     onExploreCategories: () -> Unit,
+    onOpenGuide: () -> Unit,
     onOpenShowcase: () -> Unit,
     onRequestBuild: (BuildRequestType) -> Unit
 ) {
@@ -71,14 +60,9 @@ internal fun HomeScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        AnimatedVisibility(
-            visible = true,
-            enter = fadeIn(animationSpec = tween(600)) + slideInVertically(initialOffsetY = { it / 8 }, animationSpec = tween(600))
-        ) {
-            HomeHeroSection(layout, onExploreCategories, onRequestBuild)
-        }
+        HomeHeroSection(layout, onExploreCategories, onOpenGuide, onRequestBuild)
         PosterGallerySection(layout)
-        QuickActionsSection(layout, onExploreCategories, onOpenShowcase, onRequestBuild)
+        QuickActionsSection(layout, onExploreCategories, onOpenGuide, onOpenShowcase, onRequestBuild)
         StudioHighlightsSection()
     }
 }
@@ -87,57 +71,31 @@ internal fun HomeScreen(
 private fun HomeHeroSection(
     layout: ResponsiveLayout,
     onExploreCategories: () -> Unit,
+    onOpenGuide: () -> Unit,
     onRequestBuild: (BuildRequestType) -> Unit
 ) {
-    val glowTransition = rememberInfiniteTransition(label = "home_hero_glow")
-    val glowScale = glowTransition.animateFloat(
-        initialValue = 0.88f,
-        targetValue = 1.16f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2400, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "glow_scale"
-    )
-
     Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)),
         shape = RoundedCornerShape(28.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.18f))
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(layout.heroHeight)
-                .background(
-                    Brush.linearGradient(
-                        listOf(
-                            MaterialTheme.colorScheme.background,
-                            MaterialTheme.colorScheme.surfaceVariant,
-                            MaterialTheme.colorScheme.secondary.copy(alpha = 0.72f)
-                        )
-                    )
-                )
+                .heightIn(min = layout.heroHeight)
         ) {
+            KoiScene(spec = heroKoiSpec, modifier = Modifier.matchParentSize())
             Box(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(top = 28.dp, end = 24.dp)
-                    .size(if (layout.wideLayout) 220.dp else 160.dp)
-                    .graphicsLayer {
-                        scaleX = glowScale.value
-                        scaleY = glowScale.value
-                        alpha = 0.22f
-                    }
+                    .matchParentSize()
                     .background(
-                        Brush.radialGradient(
+                        Brush.verticalGradient(
                             listOf(
-                                MaterialTheme.colorScheme.primary.copy(alpha = 0.9f),
-                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.45f),
-                                MaterialTheme.colorScheme.primary.copy(alpha = 0f)
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.58f),
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.74f),
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
                             )
-                        ),
-                        CircleShape
+                        )
                     )
             )
 
@@ -153,12 +111,10 @@ private fun HomeHeroSection(
                         modifier = Modifier.weight(1.1f),
                         compact = layout.compactWidth,
                         onExploreCategories = onExploreCategories,
+                        onOpenGuide = onOpenGuide,
                         onRequestBuild = onRequestBuild
                     )
-                    HeroPoster(
-                        modifier = Modifier.weight(0.9f),
-                        compact = layout.compactWidth
-                    )
+                    HeroPoster(modifier = Modifier.weight(0.9f), compact = layout.compactWidth)
                 }
             } else {
                 Column(
@@ -171,12 +127,10 @@ private fun HomeHeroSection(
                         modifier = Modifier.fillMaxWidth(),
                         compact = layout.compactWidth,
                         onExploreCategories = onExploreCategories,
+                        onOpenGuide = onOpenGuide,
                         onRequestBuild = onRequestBuild
                     )
-                    HeroPoster(
-                        modifier = Modifier.fillMaxWidth(),
-                        compact = layout.compactWidth
-                    )
+                    HeroPoster(modifier = Modifier.fillMaxWidth(), compact = layout.compactWidth)
                 }
             }
         }
@@ -188,16 +142,14 @@ private fun HeroCopy(
     modifier: Modifier,
     compact: Boolean,
     onExploreCategories: () -> Unit,
+    onOpenGuide: () -> Unit,
     onRequestBuild: (BuildRequestType) -> Unit
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
             text = "AI • MARKETING • DEVELOPMENT • SCALE",
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.tertiary,
             letterSpacing = 4.sp
         )
         Text(
@@ -210,11 +162,11 @@ private fun HeroCopy(
             text = buildAnnotatedString {
                 withStyle(
                     SpanStyle(
-                        brush = Brush.linearGradient(
+                        brush = Brush.horizontalGradient(
                             listOf(
                                 MaterialTheme.colorScheme.primary,
                                 MaterialTheme.colorScheme.secondary,
-                                Color(0xFF39FF14)
+                                MaterialTheme.colorScheme.tertiary
                             )
                         )
                     )
@@ -226,37 +178,45 @@ private fun HeroCopy(
             fontWeight = FontWeight.Black
         )
         Text(
-            text = "AI-powered development, relentless presentation, and a neon-cyber interface that feels pulled straight from your chosen theme.",
+            text = "A premium fire-lit studio showcase with subtle koi movement, a manifesto wall in the atmosphere, and a clear path from idea to installable Android product.",
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "This APK showcases business systems, storefronts, media hubs, utilities, learning flows, and secure platforms inside one dramatic Samsung-friendly experience.",
+            text = "Explore functional app categories, compare build approaches, review cinematic boards, and turn the strongest direction into a production-ready brief.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         if (compact) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                InfoBadge("Neon Cyber")
-                InfoBadge("Animated UI")
-                InfoBadge("APK Ready")
+                InfoBadge("Fire Palette")
+                InfoBadge("Realistic Koi Motion")
+                InfoBadge("Samsung-ready")
             }
         } else {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                InfoBadge("Neon Cyber")
-                InfoBadge("Animated UI")
-                InfoBadge("APK Ready")
+                InfoBadge("Fire Palette")
+                InfoBadge("Realistic Koi Motion")
+                InfoBadge("Samsung-ready")
             }
         }
 
-        Spacer(modifier = Modifier.weight(1f, fill = false))
+        if (compact) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                MetricBadge(value = "06", label = "Categories", modifier = Modifier.fillMaxWidth())
+                MetricBadge(value = "05", label = "App Types", modifier = Modifier.fillMaxWidth())
+                MetricBadge(value = "APK", label = "Release Ready", modifier = Modifier.fillMaxWidth())
+            }
+        } else {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                MetricBadge(value = "06", label = "Categories", modifier = Modifier.weight(1f))
+                MetricBadge(value = "05", label = "App Types", modifier = Modifier.weight(1f))
+                MetricBadge(value = "APK", label = "Release Ready", modifier = Modifier.weight(1f))
+            }
+        }
 
-        Text(
-            text = "Built with responsive Compose layouts that stay dramatic without losing usability.",
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+        Spacer(modifier = Modifier.height(2.dp))
 
         if (compact) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -270,11 +230,11 @@ private fun HeroCopy(
                 ) {
                     Text("Explore Categories")
                 }
-                OutlinedButton(
-                    onClick = { onRequestBuild(BuildRequestType.BusinessSuite) },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Request A Build")
+                OutlinedButton(onClick = onOpenGuide, modifier = Modifier.fillMaxWidth()) {
+                    Text("Open App Types Guide")
+                }
+                OutlinedButton(onClick = { onRequestBuild(BuildRequestType.ProductivityBusiness) }, modifier = Modifier.fillMaxWidth()) {
+                    Text("Start Build Brief")
                 }
             }
         } else {
@@ -289,11 +249,14 @@ private fun HeroCopy(
                 ) {
                     Text("Explore Categories")
                 }
+                OutlinedButton(onClick = onOpenGuide, modifier = Modifier.weight(1f)) {
+                    Text("App Types Guide")
+                }
                 OutlinedButton(
-                    onClick = { onRequestBuild(BuildRequestType.Storefront) },
+                    onClick = { onRequestBuild(BuildRequestType.ProductivityBusiness) },
                     modifier = Modifier.weight(1f)
                 ) {
-                    Text("Request A Build")
+                    Text("Build Brief")
                 }
             }
         }
@@ -309,9 +272,9 @@ private fun HeroPoster(modifier: Modifier, compact: Boolean) {
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.18f))
     ) {
         PosterArtwork(
-            style = PosterStyle.Builder,
+            style = PosterStyle.Productivity,
             title = "Adaryus Builds Apps",
-            badge = "Samsung-ready",
+            badge = "Fire Koi",
             modifier = Modifier
                 .fillMaxWidth()
                 .height(if (compact) 176.dp else 238.dp)
@@ -322,18 +285,20 @@ private fun HeroPoster(modifier: Modifier, compact: Boolean) {
 @Composable
 private fun PosterGallerySection(layout: ResponsiveLayout) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        SectionTitle("Image-Driven Showcase")
+        SectionTitle("Showcase Boards")
         if (layout.wideLayout) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                showcaseCards.forEach { card ->
-                    PosterCard(
-                        title = card.title,
-                        summary = card.summary,
-                        tags = card.tags,
-                        posterStyle = card.posterStyle,
-                        modifier = Modifier.weight(1f),
-                        imageHeight = layout.photoHeight + 16.dp
-                    )
+            showcaseCards.chunked(2).forEach { rowItems ->
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                    rowItems.forEach { card ->
+                        PosterCard(
+                            title = card.title,
+                            summary = card.summary,
+                            tags = card.tags,
+                            posterStyle = card.posterStyle,
+                            modifier = Modifier.weight(1f),
+                            imageHeight = layout.photoHeight + 16.dp
+                        )
+                    }
                 }
             }
         } else {
@@ -370,7 +335,7 @@ private fun PosterCard(
             PosterArtwork(
                 style = posterStyle,
                 title = title,
-                badge = tags.firstOrNull() ?: "Feature",
+                badge = tags.firstOrNull() ?: "Board",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(imageHeight)
@@ -382,17 +347,7 @@ private fun PosterCard(
                 Text(title, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.titleMedium)
                 Text(summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                    tags.forEach { tag ->
-                        Text(
-                            text = tag,
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(999.dp))
-                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.14f))
-                                .padding(horizontal = 10.dp, vertical = 6.dp),
-                            color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.labelLarge
-                        )
-                    }
+                    tags.forEach { tag -> InfoBadge(tag) }
                 }
             }
             Spacer(modifier = Modifier.height(2.dp))
@@ -404,6 +359,7 @@ private fun PosterCard(
 private fun QuickActionsSection(
     layout: ResponsiveLayout,
     onExploreCategories: () -> Unit,
+    onOpenGuide: () -> Unit,
     onOpenShowcase: () -> Unit,
     onRequestBuild: (BuildRequestType) -> Unit
 ) {
@@ -413,28 +369,25 @@ private fun QuickActionsSection(
             right = homeQuickActions[1],
             stacked = layout.singleColumn,
             onLeftClick = onExploreCategories,
-            onRightClick = onOpenShowcase
+            onRightClick = onOpenGuide
         )
         ActionRow(
             left = homeQuickActions[2],
             right = homeQuickActions[3],
             stacked = layout.singleColumn,
-            onLeftClick = { onRequestBuild(BuildRequestType.UtilityTool) },
-            onRightClick = onOpenShowcase
+            onLeftClick = onOpenShowcase,
+            onRightClick = { onRequestBuild(BuildRequestType.UtilitiesNavigation) }
         )
     }
 }
 
 @Composable
 private fun StudioHighlightsSection() {
-    SectionCard(title = "Why The UI Feels Premium") {
-        studioHighlights.forEachIndexed { index, item ->
+    SectionCard(title = "Why The Experience Feels Premium") {
+        studioHighlights.forEach { item ->
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(item.headline, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                 Text(item.detail, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            if (index < studioHighlights.lastIndex) {
-                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
             }
         }
     }

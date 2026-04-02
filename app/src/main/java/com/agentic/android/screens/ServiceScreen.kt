@@ -1,13 +1,5 @@
 package com.agentic.android.screens
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -24,25 +17,25 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.BuildRequestType
+import com.agentic.android.InfoBadge
+import com.agentic.android.KoiScene
 import com.agentic.android.PosterArtwork
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
 import com.agentic.android.buildPhases
 import com.agentic.android.showcaseCards
+import com.agentic.android.showcaseKoiSpec
 
 @Composable
 internal fun ShowcaseScreen(
@@ -55,130 +48,85 @@ internal fun ShowcaseScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SectionTitle("Showcase And Motion")
-
-        AnimatedVisibility(
-            visible = true,
-            enter = fadeIn(animationSpec = tween(650))
-        ) {
-            MotionDeckSection(onOpenRequest)
-        }
-
+        ShowcaseHero(layout, onOpenRequest)
         ShowcaseCardsSection(layout, onOpenRequest)
         BuildPhasesSection(onOpenRequest)
     }
 }
 
 @Composable
-private fun MotionDeckSection(onOpenRequest: (BuildRequestType) -> Unit) {
-    val transition = rememberInfiniteTransition(label = "motion_deck")
-    val scanOffset = transition.animateFloat(
-        initialValue = -120f,
-        targetValue = 320f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(2200, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "scan_offset"
-    )
-    val barScale = transition.animateFloat(
-        initialValue = 0.35f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(900, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "bar_scale"
-    )
-
-    SectionCard(title = "Animated Motion Deck") {
-        Text(
-            text = "This screen leans into motion so the APK feels alive on Samsung hardware instead of static. A moving scan line, pulsing signal bars, and high-contrast posters give the showcase a premium presentation.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
+private fun ShowcaseHero(layout: ResponsiveLayout, onOpenRequest: (BuildRequestType) -> Unit) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)),
+        shape = RoundedCornerShape(28.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.18f))
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(228.dp)
+                .heightIn(min = if (layout.wideLayout) 250.dp else 230.dp)
         ) {
-            PosterArtwork(
-                style = com.agentic.android.PosterStyle.Motion,
-                title = "Animated Motion Deck",
-                badge = "Live",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(228.dp)
-            )
+            KoiScene(spec = showcaseKoiSpec, modifier = Modifier.matchParentSize())
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)
-                    .graphicsLayer {
-                        translationY = scanOffset.value
-                        alpha = 0.75f
-                    }
+                    .matchParentSize()
                     .background(
-                        Brush.horizontalGradient(
+                        Brush.verticalGradient(
                             listOf(
-                                MaterialTheme.colorScheme.primary.copy(alpha = 0f),
-                                MaterialTheme.colorScheme.primary,
-                                MaterialTheme.colorScheme.primary.copy(alpha = 0f)
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.60f),
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.78f),
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
                             )
                         )
                     )
             )
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(18.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                repeat(4) { index ->
-                    Box(
-                        modifier = Modifier
-                            .size(width = 22.dp, height = (42 + index * 12).dp)
-                            .graphicsLayer {
-                                scaleY = if (index % 2 == 0) barScale.value else 1.2f - (barScale.value - 0.2f)
-                            }
-                            .background(
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.9f),
-                                RoundedCornerShape(999.dp)
-                            )
-                    )
+                Text(
+                    text = "SHOWCASE",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Text(
+                    text = "Cinematic boards for business, media, finance, and utility directions.",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "The koi stay behind the surface while the boards show how the same Adaryus visual system can flex across different product goals without losing clarity.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                    InfoBadge("Restrained motion")
+                    InfoBadge("Dark readable cards")
+                    InfoBadge("Brief-ready concepts")
+                }
+                Button(onClick = { onOpenRequest(BuildRequestType.ProductivityBusiness) }, modifier = Modifier.fillMaxWidth()) {
+                    Text("Start With A Showcase Direction")
                 }
             }
-        }
-
-        Button(onClick = { onOpenRequest(BuildRequestType.MediaHub) }, modifier = Modifier.fillMaxWidth()) {
-            Text("Turn Motion Into A Media Build")
         }
     }
 }
 
 @Composable
-private fun ShowcaseCardsSection(
-    layout: ResponsiveLayout,
-    onOpenRequest: (BuildRequestType) -> Unit
-) {
+private fun ShowcaseCardsSection(layout: ResponsiveLayout, onOpenRequest: (BuildRequestType) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         SectionTitle("Featured Build Boards")
         if (layout.wideLayout) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                showcaseCards.forEachIndexed { index, card ->
-                    ShowcaseCard(card, Modifier.weight(1f), onClick = {
-                        val type = if (index == 0) BuildRequestType.BusinessSuite else if (index == 1) BuildRequestType.Storefront else BuildRequestType.MediaHub
-                        onOpenRequest(type)
-                    })
+            showcaseCards.chunked(2).forEach { rowItems ->
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                    rowItems.forEach { card ->
+                        ShowcaseCard(item = card, modifier = Modifier.weight(1f), onClick = { onOpenRequest(card.requestType) })
+                    }
                 }
             }
         } else {
-            showcaseCards.forEachIndexed { index, card ->
-                ShowcaseCard(card, Modifier.fillMaxWidth(), onClick = {
-                    val type = if (index == 0) BuildRequestType.BusinessSuite else if (index == 1) BuildRequestType.Storefront else BuildRequestType.MediaHub
-                    onOpenRequest(type)
-                })
+            showcaseCards.forEach { card ->
+                ShowcaseCard(item = card, modifier = Modifier.fillMaxWidth(), onClick = { onOpenRequest(card.requestType) })
             }
         }
     }
@@ -196,10 +144,7 @@ private fun ShowcaseCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             PosterArtwork(
                 style = item.posterStyle,
                 title = item.title,
@@ -211,20 +156,10 @@ private fun ShowcaseCard(
             Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(item.summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                item.tags.forEach { tag ->
-                    Text(
-                        text = tag,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(999.dp))
-                            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.14f))
-                            .padding(horizontal = 10.dp, vertical = 6.dp),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
+                item.tags.forEach { tag -> InfoBadge(tag) }
             }
             Button(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
-                Text("Use This As The App Direction")
+                Text("Use This Direction")
             }
         }
     }
@@ -233,7 +168,7 @@ private fun ShowcaseCard(
 @Composable
 private fun BuildPhasesSection(onOpenRequest: (BuildRequestType) -> Unit) {
     SectionCard(title = "Build Rhythm") {
-        buildPhases.forEachIndexed { index, phase ->
+        buildPhases.forEach { phase ->
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     modifier = Modifier
@@ -248,12 +183,9 @@ private fun BuildPhasesSection(onOpenRequest: (BuildRequestType) -> Unit) {
                     Text(phase.summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            if (index < buildPhases.lastIndex) {
-                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
-            }
         }
-        Button(onClick = { onOpenRequest(BuildRequestType.SecurePlatform) }, modifier = Modifier.fillMaxWidth()) {
-            Text("Start A Secure Platform Brief")
+        Button(onClick = { onOpenRequest(BuildRequestType.EntertainmentStreaming) }, modifier = Modifier.fillMaxWidth()) {
+            Text("Turn This Into A Build Brief")
         }
     }
 }

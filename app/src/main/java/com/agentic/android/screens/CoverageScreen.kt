@@ -24,13 +24,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.AppCategory
 import com.agentic.android.BuildRequestType
+import com.agentic.android.InfoBadge
 import com.agentic.android.PosterArtwork
 import com.agentic.android.ResponsiveLayout
+import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
 import com.agentic.android.appCategories
 
@@ -43,24 +44,37 @@ internal fun CategoriesScreen(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        SectionTitle("Application Categories")
-        Text(
-            text = "Adaryus Builds can present multiple styles of Android applications inside one clean catalog. Each category below includes image panels, focus areas, and a direct path into the build request flow.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        SectionCard(title = "Functional App Categories") {
+            Text(
+                text = "Adaryus can shape the same fire-koi design language into social platforms, business systems, streaming surfaces, finance tools, learning products, and utility apps without losing its identity.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            if (layout.singleColumn) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    InfoBadge("6 functional lanes")
+                    InfoBadge("Premium poster system")
+                    InfoBadge("Direct brief handoff")
+                }
+            } else {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    InfoBadge("6 functional lanes")
+                    InfoBadge("Premium poster system")
+                    InfoBadge("Direct brief handoff")
+                }
+            }
+        }
 
+        SectionTitle("Choose The Lane")
         if (layout.wideLayout) {
             appCategories.chunked(2).forEach { rowItems ->
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                     rowItems.forEach { category ->
                         CategoryCard(category, Modifier.weight(1f), onStartRequest)
                     }
-                    if (rowItems.size == 1) {
-                        Box(modifier = Modifier.weight(1f))
-                    }
+                    if (rowItems.size == 1) Box(modifier = Modifier.weight(1f))
                 }
             }
         } else {
@@ -83,17 +97,14 @@ private fun CategoryCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             PosterArtwork(
                 style = category.posterStyle,
                 title = category.title,
                 badge = category.accentLabel,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(168.dp)
+                    .height(172.dp)
             )
 
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -105,21 +116,15 @@ private fun CategoryCard(
                 ) {
                     Icon(category.icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 }
-                Column {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text(category.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                     Text(category.summary, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
 
-            Text(
-                text = category.accentLabel,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(999.dp))
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.14f))
-                    .padding(horizontal = 10.dp, vertical = 6.dp),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                InfoBadge(category.accentLabel)
+            }
 
             category.features.forEach { feature ->
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {

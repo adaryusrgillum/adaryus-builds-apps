@@ -1,31 +1,35 @@
 package com.agentic.android.ui.theme
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 
-private val LightColors = lightColorScheme(
-    primary = AdaryusNeonCyan,
-    onPrimary = AdaryusDarker,
-    primaryContainer = AdaryusSteel,
+private val DarkColors = darkColorScheme(
+    primary = AdaryusEmber,
+    onPrimary = AdaryusBlack,
+    primaryContainer = AdaryusEmberDeep,
     onPrimaryContainer = AdaryusWhite,
-    secondary = AdaryusNeonPurple,
-    onSecondary = AdaryusWhite,
-    secondaryContainer = AdaryusDarker,
+    secondary = AdaryusFlame,
+    onSecondary = AdaryusBlack,
+    secondaryContainer = AdaryusPanelRaised,
     onSecondaryContainer = AdaryusWhite,
-    background = AdaryusDark,
+    tertiary = AdaryusMolten,
+    onTertiary = AdaryusBlack,
+    background = AdaryusBlack,
     onBackground = AdaryusWhite,
-    surface = AdaryusSteel,
+    surface = AdaryusPanel,
     onSurface = AdaryusWhite,
-    surfaceVariant = AdaryusDarker,
-    onSurfaceVariant = AdaryusMist,
-    outline = AdaryusGray
+    surfaceVariant = AdaryusCarbon,
+    onSurfaceVariant = AdaryusSilver,
+    outline = AdaryusSmoke,
+    outlineVariant = AdaryusSmoke,
+    surfaceTint = AdaryusEmber
 )
 
 @Composable
 fun AgenticAndroidTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = LightColors,
+        colorScheme = DarkColors,
         typography = Typography,
         content = content
     )

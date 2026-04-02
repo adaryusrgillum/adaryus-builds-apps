@@ -8,9 +8,9 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     displaySmall = TextStyle(
         fontWeight = FontWeight.Black,
-        fontSize = 40.sp,
-        lineHeight = 44.sp,
-        letterSpacing = (-0.5).sp
+        fontSize = 42.sp,
+        lineHeight = 46.sp,
+        letterSpacing = (-0.8).sp
     ),
     headlineMedium = TextStyle(
         fontWeight = FontWeight.Bold,
@@ -25,7 +25,8 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontWeight = FontWeight.SemiBold,
         fontSize = 22.sp,
-        lineHeight = 26.sp
+        lineHeight = 26.sp,
+        letterSpacing = (-0.2).sp
     ),
     titleMedium = TextStyle(
         fontWeight = FontWeight.SemiBold,
@@ -46,6 +47,18 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 13.sp,
         lineHeight = 18.sp,
-        letterSpacing = 0.3.sp
+        letterSpacing = 0.6.sp
+    ),
+    labelMedium = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.9.sp
+    ),
+    labelSmall = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 11.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 1.1.sp
     )
 )

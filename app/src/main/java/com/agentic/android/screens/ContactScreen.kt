@@ -1,14 +1,19 @@
 package com.agentic.android.screens
 
 import android.util.Patterns
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
@@ -28,10 +33,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.BuildRequestType
 import com.agentic.android.ContactRow
+import com.agentic.android.InfoBadge
+import com.agentic.android.MetricBadge
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.ResponsivePair
 import com.agentic.android.SectionCard
@@ -66,6 +75,27 @@ internal fun RequestScreen(
     ) {
         SectionTitle("Request A Build")
 
+        SectionCard(title = "Creative Direction") {
+            Text(
+                text = "Turn the concept into a build brief with a sharper visual direction, clear category lane, and enough detail to move into production planning fast.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                MetricBadge(value = "Brief", label = "Email Ready", modifier = Modifier.weight(1f))
+                MetricBadge(value = "Native", label = "Compose UI", modifier = Modifier.weight(1f))
+            }
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                InfoBadge("High Contrast")
+                InfoBadge("Samsung-ready")
+                InfoBadge("Motion Accents")
+            }
+        }
+
         SectionCard(title = "Studio Notes") {
             ContactRow(Icons.Outlined.Email, StudioEmail)
             ContactRow(Icons.Outlined.PhoneAndroid, StudioAvailability)
@@ -84,11 +114,36 @@ internal fun RequestScreen(
                 text = "Choose the app lane, add your idea, and this screen will open an email draft with your build brief prefilled.",
                 style = MaterialTheme.typography.bodyMedium
             )
-            Text(
-                text = "Current direction: ${selectedRequestType.hint}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.18f),
+                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+                            )
+                        ),
+                        RoundedCornerShape(18.dp)
+                    )
+            ) {
+                Column(
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = selectedRequestType.label,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = selectedRequestType.hint,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
 
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -153,11 +208,25 @@ internal fun RequestScreen(
             )
 
             statusMessage?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = if (it.startsWith("Ready")) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            if (it.startsWith("Ready")) {
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.16f)
+                            } else {
+                                MaterialTheme.colorScheme.error.copy(alpha = 0.14f)
+                            },
+                            RoundedCornerShape(16.dp)
+                        )
+                        .padding(horizontal = 12.dp, vertical = 10.dp)
+                ) {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (it.startsWith("Ready")) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.error
+                    )
+                }
             }
 
             Button(
