@@ -24,18 +24,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.BuildRequestType
 import com.agentic.android.InfoBadge
-import com.agentic.android.KoiScene
 import com.agentic.android.PosterArtwork
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
 import com.agentic.android.buildPhases
 import com.agentic.android.showcaseCards
-import com.agentic.android.showcaseKoiSpec
 
 @Composable
 internal fun ShowcaseScreen(
@@ -66,18 +65,29 @@ private fun ShowcaseHero(layout: ResponsiveLayout, onOpenRequest: (BuildRequestT
                 .fillMaxWidth()
                 .heightIn(min = if (layout.wideLayout) 250.dp else 230.dp)
         ) {
-            KoiScene(spec = showcaseKoiSpec, modifier = Modifier.matchParentSize())
             Box(
                 modifier = Modifier
                     .matchParentSize()
                     .background(
                         Brush.verticalGradient(
                             listOf(
-                                MaterialTheme.colorScheme.background.copy(alpha = 0.60f),
-                                MaterialTheme.colorScheme.surface.copy(alpha = 0.78f),
-                                MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.98f),
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.94f),
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.90f)
                             )
                         )
+                    )
+            )
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(top = 18.dp, end = 18.dp)
+                    .size(160.dp)
+                    .background(
+                        Brush.radialGradient(
+                            listOf(MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f), Color.Transparent)
+                        ),
+                        RoundedCornerShape(999.dp)
                     )
             )
             Column(
@@ -90,18 +100,18 @@ private fun ShowcaseHero(layout: ResponsiveLayout, onOpenRequest: (BuildRequestT
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = "Cinematic boards for business, media, finance, and utility directions.",
+                    text = "Beautiful editorial boards for business, media, finance, and utility directions.",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "The koi stay behind the surface while the boards show how the same Adaryus visual system can flex across different product goals without losing clarity.",
+                    text = "These boards show how the same calmer premium visual system can flex across different product goals without losing clarity or authority.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                    InfoBadge("Restrained motion")
-                    InfoBadge("Dark readable cards")
+                    InfoBadge("Cleaner hierarchy")
+                    InfoBadge("Premium materials")
                     InfoBadge("Brief-ready concepts")
                 }
                 Button(onClick = { onOpenRequest(BuildRequestType.ProductivityBusiness) }, modifier = Modifier.fillMaxWidth()) {

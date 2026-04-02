@@ -3,374 +3,528 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adaryus Builds Apps | Fire Koi Showcase</title>
+<title>Adaryus Builds Apps | Editorial Business Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#070505;
-  --bg-soft:#120908;
-  --panel:rgba(18,10,9,.84);
-  --panel-strong:rgba(24,13,11,.94);
-  --line:rgba(255,210,170,.12);
-  --text:#f7efe4;
-  --muted:rgba(247,239,228,.64);
-  --ember:#d83c27;
-  --flame:#f17022;
-  --gold:#ffbe47;
-  --smoke:#2a1714;
+  --bg:#f7f3ec;
+  --paper:#fffdf8;
+  --panel:rgba(255,252,247,.82);
+  --panel-strong:rgba(250,245,237,.94);
+  --ink:#1f2732;
+  --slate:#5d6877;
+  --line:#dbd2c5;
+  --sage:#49695f;
+  --ocean:#5d7789;
+  --champagne:#c5a877;
+  --shadow:0 22px 60px rgba(39,49,59,.08);
 }
 html{scroll-behavior:smooth}
 body{
   min-height:100vh;
-  overflow-x:hidden;
-  color:var(--text);
+  color:var(--ink);
   background:
-    radial-gradient(circle at 20% 10%, rgba(241,112,34,.16), transparent 32%),
-    radial-gradient(circle at 80% 30%, rgba(216,60,39,.12), transparent 28%),
-    linear-gradient(180deg, #050404 0%, #0a0606 38%, #070505 100%);
-  font-family:'Rajdhani',sans-serif;
+    radial-gradient(circle at 12% 12%, rgba(197,168,119,.16), transparent 26%),
+    radial-gradient(circle at 86% 16%, rgba(93,119,137,.14), transparent 22%),
+    radial-gradient(circle at 72% 72%, rgba(73,105,95,.10), transparent 24%),
+    linear-gradient(180deg, #f8f4ed 0%, #f4efe6 45%, #f7f3ec 100%);
+  font-family:'Manrope',sans-serif;
 }
-.phrase-wall,.koi-layer,.grid-layer{position:fixed;inset:0;pointer-events:none}
-.phrase-wall{z-index:0;overflow:hidden}
-.koi-layer{z-index:1}
-.grid-layer{
-  z-index:2;
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
   background-image:
-    linear-gradient(rgba(255,190,71,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(216,60,39,.03) 1px, transparent 1px);
-  background-size:60px 60px;
+    linear-gradient(rgba(31,39,50,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,39,50,.03) 1px, transparent 1px);
+  background-size:56px 56px;
+  opacity:.35;
 }
-.content{position:relative;z-index:3}
-.wall-track{
-  position:absolute;
-  top:0;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  white-space:nowrap;
-  opacity:.09;
-  font-size:13px;
-  letter-spacing:.08em;
-  animation:wallMove linear infinite;
-}
-.wall-track span{display:block}
-@keyframes wallMove{
-  from{transform:translateY(0)}
-  to{transform:translateY(-50%)}
-}
+.content{position:relative;z-index:1}
 nav{
   position:sticky;
   top:0;
-  z-index:20;
+  z-index:50;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px 28px;
-  backdrop-filter:blur(14px);
-  background:rgba(8,5,5,.76);
-  border-bottom:1px solid rgba(255,190,71,.08);
+  padding:18px 24px;
+  backdrop-filter:blur(18px);
+  background:rgba(247,243,236,.78);
+  border-bottom:1px solid rgba(31,39,50,.06);
 }
-.logo{
-  font-family:'Orbitron',sans-serif;
-  font-weight:900;
-  letter-spacing:.08em;
-  background:linear-gradient(120deg,var(--text),var(--flame),var(--gold));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;
+  font-weight:700;
+  letter-spacing:.02em;
 }
-nav ul{display:flex;list-style:none;gap:22px;flex-wrap:wrap;justify-content:flex-end}
-nav a{
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  list-style:none;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.nav-links a{
   text-decoration:none;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-size:.88rem;
+  color:var(--slate);
+  font-size:.92rem;
+  font-weight:600;
 }
-nav a:hover{color:var(--gold)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  padding:12px 16px;
+  border-radius:999px;
+  border:1px solid rgba(73,105,95,.18);
+  background:linear-gradient(135deg, rgba(73,105,95,.14), rgba(197,168,119,.18));
+  color:var(--ink)!important;
+}
 section{padding:88px 24px}
 .wrap{max-width:1180px;margin:0 auto}
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
 }
-.hero-panel{
-  width:min(100%,980px);
-  padding:42px 26px;
+.hero-layout{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:24px;
+  align-items:center;
+}
+.hero-copy,.hero-card,.panel,.package-card,.faq-card,.proof-card,.category-card,.type-card{
+  border:1px solid rgba(31,39,50,.08);
   border-radius:32px;
-  background:linear-gradient(180deg, rgba(12,7,7,.56), rgba(18,10,9,.82) 55%, rgba(19,10,9,.94));
-  border:1px solid rgba(255,190,71,.12);
-  box-shadow:0 24px 90px rgba(0,0,0,.34);
+  background:linear-gradient(180deg,var(--panel),var(--panel-strong));
+  box-shadow:var(--shadow);
 }
+.hero-copy{padding:38px}
 .eyebrow{
+  color:var(--sage);
+  letter-spacing:.24em;
   text-transform:uppercase;
-  letter-spacing:.5em;
-  color:var(--gold);
-  opacity:.9;
-  font-size:.82rem;
-  margin-bottom:18px;
+  font-size:.78rem;
+  font-weight:700;
 }
-.hero h1{
-  font-family:'Orbitron',sans-serif;
-  font-size:clamp(2.6rem,8vw,6.2rem);
-  line-height:1.05;
+h1,h2,h3{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  letter-spacing:-.02em;
+  line-height:1.02;
 }
-.hero h1 .accent{
-  background:linear-gradient(120deg,var(--ember),var(--flame),var(--gold));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+h1{font-size:clamp(3rem,8vw,5.6rem);margin-top:16px}
+h2{font-size:clamp(2rem,5vw,3.5rem)}
+h3{font-size:1.7rem}
+.lead{
+  margin-top:18px;
+  font-size:1.12rem;
+  line-height:1.75;
+  color:var(--slate);
+  max-width:700px;
 }
-.hero-copy{
-  max-width:760px;
-  margin:22px auto 0;
-  color:var(--muted);
-  font-size:1.22rem;
-  line-height:1.55;
-}
-.hero-actions,.pill-row,.card-pills,.stat-row{
+.hero-actions,.metric-row,.pill-row,.package-pills,.proof-metrics{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
 }
-.hero-actions,.pill-row,.stat-row{justify-content:center}
-.pill,.stat,.chip{
-  border-radius:999px;
-  border:1px solid rgba(255,190,71,.14);
-  background:linear-gradient(135deg, rgba(216,60,39,.14), rgba(241,112,34,.14));
-  padding:10px 14px;
-}
-.stat strong{display:block;font-family:'Orbitron',sans-serif;font-size:1rem}
+.hero-actions,.metric-row{margin-top:26px}
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:200px;
-  padding:14px 26px;
-  border-radius:14px;
+  padding:15px 22px;
+  border-radius:16px;
   text-decoration:none;
-  text-transform:uppercase;
-  letter-spacing:.16em;
   font-weight:700;
-  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
-}
-.btn-primary{
-  color:#130705;
-  background:linear-gradient(120deg,var(--ember),var(--flame),var(--gold));
-  box-shadow:0 14px 38px rgba(241,112,34,.22);
-}
-.btn-secondary{
-  color:var(--text);
-  border:1px solid rgba(255,190,71,.2);
-  background:rgba(18,10,9,.7);
+  transition:transform .25s ease, box-shadow .25s ease;
 }
 .btn:hover{transform:translateY(-2px)}
-.section-top{
-  margin-bottom:28px;
+.btn-primary{
+  color:#fcfaf6;
+  background:linear-gradient(135deg,var(--sage),#5d7a70);
+  box-shadow:0 14px 34px rgba(73,105,95,.18);
+}
+.btn-secondary{
+  color:var(--ink);
+  border:1px solid rgba(31,39,50,.12);
+  background:rgba(255,255,255,.55);
+}
+.metric{
+  min-width:140px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.48);
+  border:1px solid rgba(31,39,50,.06);
+}
+.metric strong{
+  display:block;
+  font-size:.92rem;
+  text-transform:uppercase;
+  color:var(--sage);
+  letter-spacing:.12em;
+}
+.metric span{display:block;margin-top:8px;color:var(--ink);font-weight:700}
+.hero-card{
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+  min-height:480px;
+}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(197,168,119,.22), transparent 24%),
+    radial-gradient(circle at 24% 70%, rgba(93,119,137,.14), transparent 28%);
+}
+.showcase-panel{
+  position:relative;
+  z-index:1;
   display:grid;
   gap:14px;
 }
-.section-label{
-  color:var(--flame);
-  letter-spacing:.4em;
-  text-transform:uppercase;
-  font-size:.82rem;
-}
-.section-title{
-  font-family:'Orbitron',sans-serif;
-  font-size:clamp(1.8rem,4vw,3.3rem);
-}
-.section-copy{
-  max-width:780px;
-  color:var(--muted);
-  line-height:1.6;
-  font-size:1.08rem;
-}
-.grid{
+.showcase-top{
   display:grid;
-  gap:18px;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
-.card{
-  position:relative;
-  overflow:hidden;
-  border-radius:28px;
-  border:1px solid var(--line);
-  background:linear-gradient(180deg,var(--panel),var(--panel-strong));
-  padding:18px;
-  box-shadow:0 14px 44px rgba(0,0,0,.24);
-}
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0 auto auto 0;
-  width:100%;
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--flame),var(--gold),transparent);
-  opacity:.75;
-}
-.shot{
-  height:178px;
+.mini{
+  min-height:132px;
+  padding:16px;
   border-radius:22px;
-  background:
-    radial-gradient(circle at 75% 22%, rgba(255,190,71,.24), transparent 28%),
-    linear-gradient(135deg, rgba(216,60,39,.25), rgba(241,112,34,.16) 45%, rgba(255,190,71,.12)),
-    linear-gradient(180deg, rgba(30,16,14,.8), rgba(18,11,10,.95));
-  border:1px solid rgba(255,190,71,.08);
-  position:relative;
-  overflow:hidden;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(31,39,50,.08);
 }
-.shot::after{
-  content:"";
-  position:absolute;
-  inset:18px;
-  border-radius:18px;
-  border:1px solid rgba(255,245,228,.12);
-  background:
-    linear-gradient(90deg, rgba(255,190,71,.24), transparent 64%),
-    linear-gradient(180deg, rgba(255,255,255,.07), transparent 80%);
-}
-.mini-bars,.mini-grid,.mini-stack{
-  position:absolute;
-  inset:26px;
-  display:grid;
-  gap:8px;
+.mini h4{
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--slate);
 }
 .mini-bars{
-  align-items:end;
+  display:grid;
   grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  align-items:end;
+  height:110px;
+  margin-top:12px;
 }
 .mini-bars span{
   border-radius:999px;
-  background:linear-gradient(180deg,var(--gold),var(--ember));
+  background:linear-gradient(180deg,var(--sage),var(--ocean));
 }
-.mini-grid{
-  grid-template-columns:repeat(2,1fr);
-  grid-template-rows:repeat(2,1fr);
-}
-.mini-grid span,.mini-stack span{
-  border-radius:16px;
-  background:rgba(255,240,220,.12);
-  border:1px solid rgba(255,190,71,.1);
-}
-.mini-stack{grid-template-rows:1.2fr .8fr .6fr}
-.card h3{
+.mini-path{
   margin-top:18px;
-  font-family:'Orbitron',sans-serif;
-  font-size:1.08rem;
-}
-.card p{margin-top:10px;color:var(--muted);line-height:1.55}
-.callout{
-  padding:30px 24px;
-  border-radius:32px;
-  border:1px solid var(--line);
+  height:120px;
+  border-radius:20px;
+  border:1px solid rgba(31,39,50,.08);
   background:
-    radial-gradient(circle at top right, rgba(255,190,71,.12), transparent 30%),
-    linear-gradient(180deg, rgba(17,9,8,.86), rgba(10,6,6,.96));
+    radial-gradient(circle at 20% 20%, rgba(197,168,119,.24), transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,.78), rgba(245,240,233,.92));
+  position:relative;
+}
+.mini-path::after{
+  content:"";
+  position:absolute;
+  left:10%;
+  right:10%;
+  top:44%;
+  height:18px;
+  border-radius:999px;
+  border:2px solid rgba(93,119,137,.34);
+  border-top-color:transparent;
+  border-left-color:transparent;
+  transform:rotate(-6deg);
+}
+.section-head{
+  margin-bottom:28px;
+  display:grid;
+  gap:12px;
+}
+.section-label{
+  color:var(--sage);
+  font-size:.8rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:700;
+}
+.section-copy{
+  max-width:760px;
+  color:var(--slate);
+  line-height:1.75;
+  font-size:1.02rem;
+}
+.bento,.category-grid,.type-grid,.package-grid,.faq-grid{
+  display:grid;
+  gap:18px;
+}
+.bento,.category-grid,.type-grid,.package-grid{
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+}
+.panel,.proof-card,.category-card,.type-card,.package-card,.faq-card{padding:22px}
+.panel p,.proof-card p,.category-card p,.type-card p,.package-card p,.faq-card p{
+  color:var(--slate);
+  line-height:1.7;
+  margin-top:10px;
+}
+.chip{
+  display:inline-flex;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(31,39,50,.08);
+  background:rgba(255,255,255,.58);
+  color:var(--ink);
+  font-size:.84rem;
+  font-weight:700;
+}
+.proof-card{display:grid;gap:10px}
+.proof-metrics{margin-top:8px}
+.proof-metric{
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(73,105,95,.08);
+  color:var(--sage);
+  font-size:.8rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.package-card.featured{
+  background:linear-gradient(180deg, rgba(255,252,247,.96), rgba(242,236,227,.98));
+  border-color:rgba(197,168,119,.24);
+}
+.package-card ul{
+  margin-top:16px;
+  padding-left:18px;
+  color:var(--slate);
+  line-height:1.7;
+}
+.faq-grid{grid-template-columns:1fr 1fr}
+.faq-card h3{font-size:1.45rem}
+.cta-block{
+  padding:40px 30px;
+  border-radius:38px;
+  background:
+    radial-gradient(circle at top right, rgba(197,168,119,.18), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.86), rgba(245,239,231,.96));
+  border:1px solid rgba(31,39,50,.08);
+  box-shadow:var(--shadow);
   text-align:center;
 }
 footer{
   padding:28px 24px 40px;
   text-align:center;
-  color:rgba(247,239,228,.34);
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  font-size:.78rem;
+  color:var(--slate);
+  font-size:.86rem;
 }
-@media (max-width: 820px){
-  nav{padding:16px 18px}
-  nav ul{gap:14px}
-  .hero-panel{padding:34px 18px}
-  .eyebrow{letter-spacing:.28em}
+@media (max-width: 920px){
+  .hero-layout{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+}
+@media (max-width: 720px){
+  nav{padding:16px}
+  .nav-links{gap:12px}
+  .hero-copy,.hero-card,.panel,.package-card,.faq-card,.proof-card,.category-card,.type-card{padding:20px}
+  .showcase-top{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  .wall-track{animation:none}
   .btn{transition:none}
 }
 </style>
 </head>
 <body>
-<div class="phrase-wall" id="phraseWall"></div>
-<canvas class="koi-layer" id="koiCanvas"></canvas>
-<div class="grid-layer"></div>
-
 <div class="content">
   <nav>
-    <div class="logo">ADARYUS</div>
-    <ul>
+    <div class="brand">Adaryus</div>
+    <ul class="nav-links">
+      <li><a href="#proof">Proof</a></li>
+      <li><a href="#ai">AI</a></li>
       <li><a href="#categories">Categories</a></li>
-      <li><a href="#types">App Types</a></li>
-      <li><a href="#showcase">Showcase</a></li>
-      <li><a href="#brief">Build Brief</a></li>
+      <li><a href="#types">Build Paths</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#brief" class="nav-cta">Start Brief</a></li>
     </ul>
   </nav>
 
   <section class="hero">
-    <div class="hero-panel">
-      <div class="eyebrow">AI • MARKETING • DEVELOPMENT • SCALE</div>
-      <h1>Adaryus<br><span class="accent">Builds Apps</span></h1>
-      <p class="hero-copy">A fire-lit studio showcase with original koi drifting behind the interface, a low-opacity manifesto wall from the original theme concept, and a cleaner path from app idea to Android-ready product.</p>
-      <div class="hero-actions" style="margin-top:28px">
-        <a class="btn btn-primary" href="#categories">See Categories</a>
-        <a class="btn btn-secondary" href="#types">Open App Types Guide</a>
+    <div class="wrap hero-layout">
+      <div class="hero-copy">
+        <div class="eyebrow">Editorial Product Studio</div>
+        <h1>Beautiful apps that make your business feel more valuable.</h1>
+        <p class="lead">Adaryus now uses a softer premium design language inspired by current editorial interfaces and modern mobile product systems. The goal is simple: help your app look more credible, convert better, and feel like something people trust immediately.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#brief">Start A Beautiful Build Brief</a>
+          <a class="btn btn-secondary" href="#categories">See Product Categories</a>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><strong>Look</strong><span>More premium at first glance</span></div>
+          <div class="metric"><strong>Flow</strong><span>Cleaner mobile conversion path</span></div>
+          <div class="metric"><strong>AI</strong><span>Built for modern AI-era offers</span></div>
+        </div>
       </div>
-      <div class="stat-row" style="margin-top:22px">
-        <div class="stat"><strong>06</strong><span>Functional Categories</span></div>
-        <div class="stat"><strong>05</strong><span>Technology Paths</span></div>
-        <div class="stat"><strong>APK</strong><span>Studio Direction</span></div>
+
+      <div class="hero-card">
+        <div class="showcase-panel">
+          <div class="showcase-top">
+            <div class="mini">
+              <h4>Offer Clarity</h4>
+              <div class="mini-bars">
+                <span style="height:38%"></span>
+                <span style="height:62%"></span>
+                <span style="height:86%"></span>
+                <span style="height:74%"></span>
+                <span style="height:58%"></span>
+              </div>
+            </div>
+            <div class="mini">
+              <h4>Trust Layer</h4>
+              <div class="mini-bars">
+                <span style="height:78%"></span>
+                <span style="height:92%"></span>
+                <span style="height:64%"></span>
+                <span style="height:54%"></span>
+                <span style="height:70%"></span>
+              </div>
+            </div>
+          </div>
+          <div class="mini-path"></div>
+          <div class="package-pills">
+            <span class="chip">Serif + sans contrast</span>
+            <span class="chip">Soft materials</span>
+            <span class="chip">Mobile-first hierarchy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-label">Why This Feels Better</div>
+        <h2>Research-backed design moves that make the product feel more modern.</h2>
+        <p class="section-copy">This direction leans on current premium patterns: serif display typography for drama, quieter colors for confidence, lighter materials for readability, and clearer CTA hierarchy so the experience feels expensive instead of noisy.</p>
+      </div>
+      <div class="bento">
+        <article class="proof-card">
+          <h3>Editorial typography</h3>
+          <p>Large serif headlines paired with clean sans body copy create stronger contrast and a more intentional premium feel.</p>
+          <div class="proof-metrics"><span class="proof-metric">High-end first impression</span></div>
+        </article>
+        <article class="proof-card">
+          <h3>Lighter materials</h3>
+          <p>Soft paper surfaces and calmer accents make the interface easier to trust and easier to read than the older dark dramatic treatment.</p>
+          <div class="proof-metrics"><span class="proof-metric">Cleaner readability</span></div>
+        </article>
+        <article class="proof-card">
+          <h3>More intentional hierarchy</h3>
+          <p>The new structure prioritizes offer, proof, categories, and next step in a way that feels beautiful without losing sales clarity.</p>
+          <div class="proof-metrics"><span class="proof-metric">Better conversion flow</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="pain">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-label">What This Fixes</div>
+        <h2>Most apps lose buyers before the value is even understood.</h2>
+        <p class="section-copy">Beautiful design is not decoration here. It reduces doubt, creates clearer intent, and helps the business look more established from the first screen.</p>
+      </div>
+      <div class="bento">
+        <article class="panel">
+          <h3>Too much visual noise</h3>
+          <p>When the interface tries too hard, the business feels less trustworthy. The new version replaces intensity with confidence.</p>
+        </article>
+        <article class="panel">
+          <h3>Weak first impression</h3>
+          <p>If the product looks generic or cluttered, visitors assume the service behind it is generic too.</p>
+        </article>
+        <article class="panel">
+          <h3>Unclear next step</h3>
+          <p>Buyers should know what to do in seconds. The revised hierarchy pushes action higher without feeling aggressive.</p>
+        </article>
+        <article class="panel">
+          <h3>Style without strategy</h3>
+          <p>The design still supports leads, bookings, and credibility. It just does it with a calmer, more elegant voice.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-label">AI Right Now</div>
+        <h2>The app now reflects the AI shifts that actually matter for product strategy.</h2>
+        <p class="section-copy">Instead of stuffing the experience with vague AI hype, Adaryus now highlights the changes that genuinely affect what businesses can build, automate, and sell: private local models, tool-connected agents, edge intelligence, realtime voice, and security-first AI systems.</p>
+      </div>
+      <div class="bento">
+        <article class="proof-card">
+          <h3>Private local models</h3>
+          <p>Local AI through tools like Ollama makes privacy-first demos, internal copilots, and offline-friendly workflows far more realistic than they were a year ago.</p>
+          <div class="proof-metrics"><span class="proof-metric">Ollama-ready thinking</span></div>
+        </article>
+        <article class="proof-card">
+          <h3>Tool-connected agents</h3>
+          <p>MCP-style workflows matter because the model becomes useful when it can reach the right docs, systems, and actions safely instead of staying trapped in chat.</p>
+          <div class="proof-metrics"><span class="proof-metric">Agent workflow layer</span></div>
+        </article>
+        <article class="proof-card">
+          <h3>Edge and on-device AI</h3>
+          <p>Jetson-class edge hardware keeps pushing smart products closer to the device, which changes what is possible for low-latency assistants and private inference.</p>
+          <div class="proof-metrics"><span class="proof-metric">Lower-latency products</span></div>
+        </article>
+        <article class="proof-card">
+          <h3>Realtime voice interfaces</h3>
+          <p>Voice is becoming a real product surface again as speech, translation, and agent workflows get faster and more natural.</p>
+          <div class="proof-metrics"><span class="proof-metric">Voice as product UX</span></div>
+        </article>
+        <article class="proof-card">
+          <h3>Security-first AI</h3>
+          <p>If the model can reach tools and data, access design matters. Safer AI products assume permissions should be explicit, scoped, and monitored.</p>
+          <div class="proof-metrics"><span class="proof-metric">Zero-trust mindset</span></div>
+        </article>
       </div>
     </div>
   </section>
 
   <section id="categories">
     <div class="wrap">
-      <div class="section-top">
-        <div class="section-label">Functional Categories</div>
-        <h2 class="section-title">Multiple product lanes inside one Adaryus identity.</h2>
-        <p class="section-copy">The same fire palette, dark glass surfaces, and restrained koi atmosphere can flex into community spaces, internal systems, streaming products, finance tools, education apps, and everyday utilities.</p>
+      <div class="section-head">
+        <div class="section-label">Categories</div>
+        <h2>One visual system, multiple beautiful product directions.</h2>
+        <p class="section-copy">The redesigned style can support lead generation, trust, engagement, and repeat use across the main categories Adaryus already covers.</p>
       </div>
-      <div class="grid">
-        <article class="card">
-          <div class="shot"><div class="mini-grid"><span></span><span></span><span></span><span></span></div></div>
-          <h3>Social / Community</h3>
-          <p>Member feeds, profiles, creator spaces, events, and conversation-led design.</p>
-          <div class="card-pills" style="margin-top:14px"><span class="chip">Feeds</span><span class="chip">Groups</span><span class="chip">Events</span></div>
+      <div class="category-grid">
+        <article class="category-card">
+          <h3>Business Systems</h3>
+          <p>Dashboards, approvals, reporting, and internal tools that feel calmer, clearer, and more executive-ready.</p>
+          <div class="pill-row"><span class="chip">Dashboards</span><span class="chip">Operations</span></div>
         </article>
-        <article class="card">
-          <div class="shot"><div class="mini-bars"><span style="height:42%"></span><span style="height:78%"></span><span style="height:61%"></span><span style="height:92%"></span><span style="height:52%"></span></div></div>
-          <h3>Productivity / Business</h3>
-          <p>Dashboards, approvals, reports, task systems, and operation-focused mobile tools.</p>
-          <div class="card-pills" style="margin-top:14px"><span class="chip">Dashboards</span><span class="chip">Approvals</span><span class="chip">Reports</span></div>
+        <article class="category-card">
+          <h3>Finance Products</h3>
+          <p>Trust-heavy products with refined materials, clean hierarchy, and a premium sense of control.</p>
+          <div class="pill-row"><span class="chip">Accounts</span><span class="chip">Confidence</span></div>
         </article>
-        <article class="card">
-          <div class="shot"><div class="mini-stack"><span></span><span></span><span></span></div></div>
-          <h3>Entertainment / Streaming</h3>
-          <p>Playback rails, media discovery, featured content, playlists, and motion-first browsing.</p>
-          <div class="card-pills" style="margin-top:14px"><span class="chip">Streaming</span><span class="chip">Reels</span><span class="chip">Discovery</span></div>
+        <article class="category-card">
+          <h3>Media & Content</h3>
+          <p>Streaming, editorial content, and audience-focused products that feel polished instead of loud.</p>
+          <div class="pill-row"><span class="chip">Discovery</span><span class="chip">Attention</span></div>
         </article>
-        <article class="card">
-          <div class="shot"><div class="mini-stack"><span></span><span style="width:70%"></span><span style="width:45%"></span></div></div>
-          <h3>Finance / Banking</h3>
-          <p>Balances, transfers, analytics, alerts, and secure interfaces built for trust.</p>
-          <div class="card-pills" style="margin-top:14px"><span class="chip">Accounts</span><span class="chip">Security</span><span class="chip">Tracking</span></div>
-        </article>
-        <article class="card">
-          <div class="shot"><div class="mini-bars"><span style="height:96%"></span><span style="height:96%"></span><span style="height:96%"></span><span style="height:30%"></span><span style="height:30%"></span></div></div>
-          <h3>Education / Learning</h3>
-          <p>Lesson flows, quizzes, certificates, onboarding, and progress-aware experiences.</p>
-          <div class="card-pills" style="margin-top:14px"><span class="chip">Lessons</span><span class="chip">Progress</span><span class="chip">Quizzes</span></div>
-        </article>
-        <article class="card">
-          <div class="shot"><div class="mini-grid"><span></span><span></span><span></span><span></span></div></div>
-          <h3>Utilities / Navigation</h3>
-          <p>Maps, scanners, quick actions, route helpers, and tightly focused mobile tools.</p>
-          <div class="card-pills" style="margin-top:14px"><span class="chip">Maps</span><span class="chip">Scanners</span><span class="chip">Shortcuts</span></div>
+        <article class="category-card">
+          <h3>Utilities & Service Tools</h3>
+          <p>Useful apps that feel sophisticated enough to build confidence while staying fast and practical.</p>
+          <div class="pill-row"><span class="chip">Utility</span><span class="chip">Repeat use</span></div>
         </article>
       </div>
     </div>
@@ -378,68 +532,88 @@ footer{
 
   <section id="types">
     <div class="wrap">
-      <div class="section-top">
-        <div class="section-label">App Types Guide</div>
-        <h2 class="section-title">Choose the right build path before the interface gets polished.</h2>
-        <p class="section-copy">The category tells us what the product does. The technology path tells us how it should be delivered, what performance we can expect, and where the tradeoffs live.</p>
+      <div class="section-head">
+        <div class="section-label">Build Paths</div>
+        <h2>The product should be beautiful, but the delivery path still has to make business sense.</h2>
+        <p class="section-copy">The right build approach protects both the visual quality and the timeline. The redesign keeps that technical guidance visible instead of hiding it behind aesthetics.</p>
       </div>
-      <div class="grid">
-        <article class="card">
-          <h3>Native Apps</h3>
-          <p>Built directly for Android or iPhone with the strongest device performance and hardware access.</p>
-          <div class="pill-row" style="margin-top:14px"><span class="pill">Best performance</span><span class="pill">High security</span><span class="pill">Flagship polish</span></div>
+      <div class="type-grid">
+        <article class="type-card">
+          <h3>Native</h3>
+          <p>Best when the product needs the highest polish, the strongest motion performance, and the most confident device experience.</p>
         </article>
-        <article class="card">
-          <h3>Web Apps</h3>
-          <p>Responsive browser-based products that launch fast and work well for portals, content, and reach.</p>
-          <div class="pill-row" style="margin-top:14px"><span class="pill">Fast deployment</span><span class="pill">Browser first</span><span class="pill">Single web codebase</span></div>
+        <article class="type-card">
+          <h3>Web</h3>
+          <p>Best when speed to launch, easier discovery, and browser access matter most.</p>
         </article>
-        <article class="card">
-          <h3>Hybrid Apps</h3>
-          <p>Installed apps powered by web technologies, useful when cross-platform speed matters.</p>
-          <div class="pill-row" style="margin-top:14px"><span class="pill">Shared logic</span><span class="pill">App-store install</span><span class="pill">Balanced delivery</span></div>
-        </article>
-        <article class="card">
-          <h3>Progressive Web Apps</h3>
-          <p>Install-like web experiences with lightweight delivery, useful for ordering, field tools, and quick access.</p>
-          <div class="pill-row" style="margin-top:14px"><span class="pill">Lean shipping</span><span class="pill">Install-like behavior</span><span class="pill">Quick access</span></div>
-        </article>
-        <article class="card">
-          <h3>Cross-Platform Apps</h3>
-          <p>One codebase for Android and iPhone, balancing speed, consistency, and cost efficiency.</p>
-          <div class="pill-row" style="margin-top:14px"><span class="pill">Shared codebase</span><span class="pill">Consistent UI</span><span class="pill">Scale efficient</span></div>
+        <article class="type-card">
+          <h3>Cross-Platform</h3>
+          <p>Best when the business wants premium feel on Android and iPhone without building everything twice.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section id="showcase">
+  <section id="packages">
     <div class="wrap">
-      <div class="section-top">
-        <div class="section-label">Showcase Boards</div>
-        <h2 class="section-title">Four cinematic directions shaped from the same fire-and-water language.</h2>
-        <p class="section-copy">These boards echo the Android experience: business systems, streaming products, finance tools, and route-driven utilities, all with premium contrast and restrained background motion.</p>
+      <div class="section-head">
+        <div class="section-label">Engagement Models</div>
+        <h2>Three levels depending on how much beauty, strategy, and conversion support the launch needs.</h2>
       </div>
-      <div class="grid">
-        <article class="card">
-          <div class="shot"><div class="mini-bars"><span style="height:38%"></span><span style="height:74%"></span><span style="height:56%"></span><span style="height:88%"></span><span style="height:46%"></span></div></div>
-          <h3>Signal Console</h3>
-          <p>Operational dashboards with metrics, approvals, and high-clarity workflow control.</p>
+      <div class="package-grid">
+        <article class="package-card">
+          <h3>Starter</h3>
+          <p>For businesses that need a more polished look and a stronger first version without overbuilding.</p>
+          <ul>
+            <li>Sharper hero and CTA structure</li>
+            <li>One-platform visual system</li>
+            <li>Lead-focused core flow</li>
+          </ul>
         </article>
-        <article class="card">
-          <div class="shot"><div class="mini-stack"><span></span><span></span><span></span></div></div>
-          <h3>Stream House</h3>
-          <p>A motion-led entertainment board for discovery, playback, and media browsing rhythm.</p>
+        <article class="package-card featured">
+          <h3>Growth</h3>
+          <p>For businesses ready to improve conversion and launch a more complete premium experience.</p>
+          <ul>
+            <li>Android + web alignment</li>
+            <li>More complete sales journey</li>
+            <li>Offer, proof, and package framing</li>
+          </ul>
         </article>
-        <article class="card">
-          <div class="shot"><div class="mini-stack"><span></span><span style="width:72%"></span><span style="width:48%"></span></div></div>
-          <h3>Vault Ledger</h3>
-          <p>Finance-first design with trust, account visibility, and secure high-contrast structure.</p>
+        <article class="package-card">
+          <h3>Premium</h3>
+          <p>For businesses that want a flagship feel, stronger market positioning, and a more memorable first impression.</p>
+          <ul>
+            <li>High-touch direction</li>
+            <li>Flagship visual polish</li>
+            <li>Premium launch system</li>
+          </ul>
         </article>
-        <article class="card">
-          <div class="shot"><div class="mini-grid"><span></span><span></span><span></span><span></span></div></div>
-          <h3>Route Utility</h3>
-          <p>Useful mobile tooling for navigation, field work, quick actions, and map-aware flows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-label">FAQ</div>
+        <h2>Answers to the questions that usually slow down a premium redesign.</h2>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card">
+          <h3>Will this still help sales?</h3>
+          <p>Yes. The design is quieter, not weaker. The sales intent is still there, just delivered with more trust and less noise.</p>
+        </article>
+        <article class="faq-card">
+          <h3>Why remove the older dramatic theme?</h3>
+          <p>Because a calmer editorial look often feels more expensive, more modern, and more believable to serious buyers.</p>
+        </article>
+        <article class="faq-card">
+          <h3>Does this work on mobile?</h3>
+          <p>That is the point. The redesign is built around cleaner spacing, better typography, and softer contrast that holds up on phones first.</p>
+        </article>
+        <article class="faq-card">
+          <h3>Can the visual system still feel distinctive?</h3>
+          <p>Yes. The uniqueness now comes from composition, typography, and restraint rather than heavy effects.</p>
         </article>
       </div>
     </div>
@@ -447,183 +621,19 @@ footer{
 
   <section id="brief">
     <div class="wrap">
-      <div class="callout">
+      <div class="cta-block">
         <div class="section-label">Build Brief</div>
-        <h2 class="section-title" style="font-size:clamp(1.7rem,4vw,2.9rem)">Advertising is the spark. Your product is the fire.</h2>
-        <p class="section-copy" style="margin:16px auto 0">Pick the category, choose the technology path, and turn the direction into a premium Adaryus build brief for Android, web, or both.</p>
-        <div class="hero-actions" style="margin-top:26px">
-          <a class="btn btn-primary" href="mailto:hello@adaryusbuilds.app?subject=Adaryus%20Build%20Brief">Start The Brief</a>
-          <a class="btn btn-secondary" href="#categories">Review Categories Again</a>
+        <h2>Start with a better-looking direction and a more credible product presence.</h2>
+        <p class="section-copy" style="margin:18px auto 0">If you want the app to feel more beautiful, more premium, and more trustworthy, the next step is a brief that explains what the business sells and what the product should make easier.</p>
+        <div class="hero-actions" style="justify-content:center;margin-top:24px">
+          <a class="btn btn-primary" href="mailto:hello@adaryusbuilds.app?subject=Adaryus%20Editorial%20Build%20Brief">Start The Brief</a>
+          <a class="btn btn-secondary" href="#proof">Review The Design Direction</a>
         </div>
       </div>
     </div>
   </section>
 
-  <footer>2026 Adaryus Fire Koi Build Preview</footer>
+  <footer>2026 Adaryus editorial business studio preview</footer>
 </div>
-
-<script>
-const phrases = [
-  "Your brand is your promise to the world.",
-  "AI does not replace strategy. It amplifies it.",
-  "Every pixel tells a story.",
-  "Scale is not a dream. It is a system.",
-  "The best marketing does not feel like marketing.",
-  "Your app is your empire in your pocket.",
-  "Design with intention. Build with precision.",
-  "Behind every great brand is a system that scales.",
-  "Adaryus builds what businesses need to win.",
-  "Advertising is the spark. Your product is the fire.",
-  "Build apps that solve real problems for real people.",
-  "Code the future. Market the vision. Scale the mission.",
-  "Innovation favors the prepared.",
-  "Turn browsers into buyers.",
-  "Organic growth is compound interest for your brand.",
-  "Let your technology do the heavy lifting.",
-  "From startup to standout.",
-  "Growth starts with the right architecture.",
-  "Your brand identity is your unfair advantage."
-];
-
-const wall = document.getElementById("phraseWall");
-for (let i = 0; i < 9; i++) {
-  const column = document.createElement("div");
-  column.className = "wall-track";
-  column.style.left = `${i * 11.5}%`;
-  column.style.animationDuration = `${28 + i * 4}s`;
-  column.style.color = i % 3 === 0 ? "rgba(216,60,39,.95)" : i % 3 === 1 ? "rgba(241,112,34,.95)" : "rgba(255,190,71,.92)";
-  const ordered = phrases.map((_, index) => phrases[(index + i * 2) % phrases.length]);
-  column.innerHTML = [...ordered, ...ordered].map(item => `<span>${item}</span>`).join("");
-  wall.appendChild(column);
-}
-
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const canvas = document.getElementById("koiCanvas");
-const ctx = canvas.getContext("2d");
-let width = 0;
-let height = 0;
-
-const fish = [
-  {size:.78, speed:.00004, t:.08, y1:.18, y2:.42, dir:1, alpha:.18, palette:["#f6efe6","#f17022","#c92d1c"]},
-  {size:.96, speed:.000034, t:.44, y1:.52, y2:.22, dir:-1, alpha:.24, palette:["#f7f0e8","#ffbe47","#dd5227"]},
-  {size:1.14, speed:.00003, t:.74, y1:.28, y2:.64, dir:1, alpha:.28, palette:["#efe7dd","#f08a3e","#8d2114"]},
-  {size:.68, speed:.000042, t:.22, y1:.68, y2:.36, dir:-1, alpha:.15, palette:["#f9f5ef","#f4a43c","#e55722"]}
-];
-
-function resize() {
-  width = canvas.width = window.innerWidth * window.devicePixelRatio;
-  height = canvas.height = window.innerHeight * window.devicePixelRatio;
-  canvas.style.width = `${window.innerWidth}px`;
-  canvas.style.height = `${window.innerHeight}px`;
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  width = window.innerWidth;
-  height = window.innerHeight;
-}
-
-function pointOnCurve(t, fishDef) {
-  const startX = fishDef.dir === 1 ? -120 : width + 120;
-  const endX = fishDef.dir === 1 ? width + 120 : -120;
-  const cpX = width * (.28 + (fishDef.size * .1));
-  const startY = height * fishDef.y1;
-  const endY = height * fishDef.y2;
-  const cpY = height * (.12 + fishDef.size * .22);
-  const one = 1 - t;
-  return {
-    x: one * one * startX + 2 * one * t * cpX + t * t * endX,
-    y: one * one * startY + 2 * one * t * cpY + t * t * endY
-  };
-}
-
-function tangentOnCurve(t, fishDef) {
-  const startX = fishDef.dir === 1 ? -120 : width + 120;
-  const endX = fishDef.dir === 1 ? width + 120 : -120;
-  const cpX = width * (.28 + (fishDef.size * .1));
-  const startY = height * fishDef.y1;
-  const endY = height * fishDef.y2;
-  const cpY = height * (.12 + fishDef.size * .22);
-  return {
-    x: 2 * (1 - t) * (cpX - startX) + 2 * t * (endX - cpX),
-    y: 2 * (1 - t) * (cpY - startY) + 2 * t * (endY - cpY)
-  };
-}
-
-function drawRipples(time) {
-  const rippleCenters = [
-    {x: width * .18, y: height * .24, radius: 90},
-    {x: width * .74, y: height * .58, radius: 76}
-  ];
-  rippleCenters.forEach((ripple, index) => {
-    const pulse = (Math.sin(time * .001 + index) + 1) * .5;
-    ctx.strokeStyle = index === 0 ? "rgba(255,190,71,.12)" : "rgba(216,60,39,.12)";
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(ripple.x, ripple.y, ripple.radius + pulse * 22, 0, Math.PI * 2);
-    ctx.stroke();
-  });
-}
-
-function drawFish(fishDef, time) {
-  const t = (fishDef.t + time * fishDef.speed) % 1;
-  const point = pointOnCurve(t, fishDef);
-  const tangent = tangentOnCurve(t, fishDef);
-  const angle = Math.atan2(tangent.y, tangent.x);
-  const length = 92 * fishDef.size;
-  const heightFish = 28 * fishDef.size;
-
-  ctx.save();
-  ctx.translate(point.x, point.y);
-  ctx.rotate(angle);
-  ctx.globalAlpha = fishDef.alpha;
-
-  const gradient = ctx.createLinearGradient(-length * .45, 0, length * .45, 0);
-  gradient.addColorStop(0, fishDef.palette[0]);
-  gradient.addColorStop(.55, fishDef.palette[1]);
-  gradient.addColorStop(1, fishDef.palette[2]);
-
-  ctx.fillStyle = gradient;
-  ctx.beginPath();
-  ctx.ellipse(-length * .08, 0, length * .34, heightFish * .52, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = fishDef.palette[2];
-  ctx.beginPath();
-  ctx.moveTo(length * .2, 0);
-  ctx.lineTo(length * .48, -heightFish * .58);
-  ctx.lineTo(length * .4, 0);
-  ctx.lineTo(length * .48, heightFish * .58);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.fillStyle = "rgba(255,255,255,.24)";
-  ctx.beginPath();
-  ctx.ellipse(-length * .18, -heightFish * .12, length * .12, heightFish * .12, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "rgba(44,17,12,.42)";
-  for (let i = 0; i < 3; i++) {
-    ctx.beginPath();
-    ctx.arc(-length * (.16 - i * .14), i % 2 === 0 ? -heightFish * .08 : heightFish * .06, heightFish * (.11 + i * .02), 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  ctx.restore();
-}
-
-function render(time) {
-  ctx.clearRect(0, 0, width, height);
-  drawRipples(time);
-  fish.forEach(item => drawFish(item, time));
-  if (!reducedMotion) requestAnimationFrame(render);
-}
-
-resize();
-window.addEventListener("resize", resize);
-if (!reducedMotion) {
-  requestAnimationFrame(render);
-} else {
-  render(0);
-}
-</script>
 </body>
 </html>

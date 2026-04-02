@@ -48,7 +48,7 @@ internal fun CategoriesScreen(
     ) {
         SectionCard(title = "Functional App Categories") {
             Text(
-                text = "Adaryus can shape the same fire-koi design language into social platforms, business systems, streaming surfaces, finance tools, learning products, and utility apps without losing its identity.",
+                text = "Adaryus can shape the same premium editorial design language into social platforms, business systems, streaming surfaces, finance tools, learning products, and utility apps without losing its identity.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

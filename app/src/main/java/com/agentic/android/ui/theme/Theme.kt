@@ -1,35 +1,35 @@
 package com.agentic.android.ui.theme
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val DarkColors = darkColorScheme(
-    primary = AdaryusEmber,
-    onPrimary = AdaryusBlack,
-    primaryContainer = AdaryusEmberDeep,
-    onPrimaryContainer = AdaryusWhite,
-    secondary = AdaryusFlame,
-    onSecondary = AdaryusBlack,
-    secondaryContainer = AdaryusPanelRaised,
-    onSecondaryContainer = AdaryusWhite,
-    tertiary = AdaryusMolten,
-    onTertiary = AdaryusBlack,
-    background = AdaryusBlack,
-    onBackground = AdaryusWhite,
-    surface = AdaryusPanel,
-    onSurface = AdaryusWhite,
-    surfaceVariant = AdaryusCarbon,
-    onSurfaceVariant = AdaryusSilver,
-    outline = AdaryusSmoke,
-    outlineVariant = AdaryusSmoke,
-    surfaceTint = AdaryusEmber
+private val LightColors = lightColorScheme(
+    primary = AdaryusSage,
+    onPrimary = AdaryusPaper,
+    primaryContainer = AdaryusLinen,
+    onPrimaryContainer = AdaryusInk,
+    secondary = AdaryusOcean,
+    onSecondary = AdaryusPaper,
+    secondaryContainer = AdaryusIvory,
+    onSecondaryContainer = AdaryusInk,
+    tertiary = AdaryusChampagne,
+    onTertiary = AdaryusInk,
+    background = AdaryusIvory,
+    onBackground = AdaryusInk,
+    surface = AdaryusPaper,
+    onSurface = AdaryusInk,
+    surfaceVariant = AdaryusLinen,
+    onSurfaceVariant = AdaryusSlate,
+    outline = AdaryusSandLine,
+    outlineVariant = AdaryusShadow,
+    surfaceTint = AdaryusSage
 )
 
 @Composable
 fun AgenticAndroidTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = DarkColors,
+        colorScheme = LightColors,
         typography = Typography,
         content = content
     )

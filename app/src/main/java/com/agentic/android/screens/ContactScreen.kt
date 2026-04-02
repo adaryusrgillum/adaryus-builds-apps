@@ -64,6 +64,8 @@ internal fun RequestScreen(
     var brandName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var appName by rememberSaveable { mutableStateOf("") }
+    var businessGoal by rememberSaveable { mutableStateOf("") }
+    var audience by rememberSaveable { mutableStateOf("") }
     var details by rememberSaveable { mutableStateOf("") }
     var statusMessage by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -73,30 +75,30 @@ internal fun RequestScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SectionTitle("Request A Build")
+        SectionTitle("Sales-Focused Build Brief")
 
-        SectionCard(title = "Creative Direction") {
+        SectionCard(title = "What This Brief Should Do") {
             Text(
-                text = "Turn the concept into a build brief with a sharper visual direction, clear category lane, and enough detail to move into production planning fast.",
+                text = "This is no longer just a design request. It should explain what you sell, who you want to reach, and what action the app needs to generate.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                MetricBadge(value = "Brief", label = "Email Ready", modifier = Modifier.weight(1f))
-                MetricBadge(value = "Native", label = "Compose UI", modifier = Modifier.weight(1f))
+                MetricBadge(value = "Lead", label = "Ready", modifier = Modifier.weight(1f))
+                MetricBadge(value = "Offer", label = "Clarity", modifier = Modifier.weight(1f))
             }
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                InfoBadge("High Contrast")
-                InfoBadge("Samsung-ready")
-                InfoBadge("Motion Accents")
+                InfoBadge("Qualify the buyer")
+                InfoBadge("Clarify the offer")
+                InfoBadge("Focus on conversion")
             }
         }
 
-        SectionCard(title = "Studio Notes") {
+        SectionCard(title = "Studio Positioning") {
             ContactRow(Icons.Outlined.Email, StudioEmail)
             ContactRow(Icons.Outlined.PhoneAndroid, StudioAvailability)
             ContactRow(Icons.Outlined.Palette, StudioStyleNote)
@@ -109,9 +111,9 @@ internal fun RequestScreen(
             }
         }
 
-        SectionCard(title = "Build Brief") {
+        SectionCard(title = "Qualified Project Brief") {
             Text(
-                text = "Choose the app lane, add your idea, and this screen will open an email draft with your build brief prefilled.",
+                text = "Choose the product lane and tell Adaryus what revenue, trust, or customer action the app should improve.",
                 style = MaterialTheme.typography.bodyMedium
             )
             Box(
@@ -121,7 +123,7 @@ internal fun RequestScreen(
                         Brush.horizontalGradient(
                             listOf(
                                 MaterialTheme.colorScheme.primary.copy(alpha = 0.18f),
-                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.10f)
                             )
                         ),
                         RoundedCornerShape(18.dp)
@@ -199,12 +201,34 @@ internal fun RequestScreen(
                 }
             )
 
+            ResponsivePair(
+                stacked = !layout.formTwoColumn,
+                first = { modifier ->
+                    OutlinedTextField(
+                        value = businessGoal,
+                        onValueChange = { businessGoal = it },
+                        label = { Text("Main business goal") },
+                        placeholder = { Text("More leads, more bookings, more sales, stronger retention") },
+                        modifier = modifier
+                    )
+                },
+                second = { modifier ->
+                    OutlinedTextField(
+                        value = audience,
+                        onValueChange = { audience = it },
+                        label = { Text("Best customer or audience") },
+                        placeholder = { Text("Who should this app persuade or serve?") },
+                        modifier = modifier
+                    )
+                }
+            )
+
             OutlinedTextField(
                 value = details,
                 onValueChange = { details = it },
-                label = { Text("What should the app do?") },
+                label = { Text("What should the app do and why would someone buy?") },
                 modifier = Modifier.fillMaxWidth(),
-                minLines = 6
+                minLines = 7
             )
 
             statusMessage?.let {
@@ -212,11 +236,8 @@ internal fun RequestScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            if (it.startsWith("Ready")) {
-                                MaterialTheme.colorScheme.primary.copy(alpha = 0.16f)
-                            } else {
-                                MaterialTheme.colorScheme.error.copy(alpha = 0.14f)
-                            },
+                            if (it.startsWith("Ready")) MaterialTheme.colorScheme.primary.copy(alpha = 0.16f)
+                            else MaterialTheme.colorScheme.error.copy(alpha = 0.14f),
                             RoundedCornerShape(16.dp)
                         )
                         .padding(horizontal = 12.dp, vertical = 10.dp)
@@ -231,7 +252,7 @@ internal fun RequestScreen(
 
             Button(
                 onClick = {
-                    val error = validateBuildBrief(clientName, brandName, email, details)
+                    val error = validateBuildBrief(clientName, brandName, email, businessGoal, audience, details)
                     if (error != null) {
                         statusMessage = error
                     } else {
@@ -241,6 +262,8 @@ internal fun RequestScreen(
                             appendLine("Email: $email")
                             appendLine("Brand / Company: $brandName")
                             if (appName.isNotBlank()) appendLine("App Name: $appName")
+                            appendLine("Main Business Goal: $businessGoal")
+                            appendLine("Target Audience: $audience")
                             appendLine()
                             appendLine("Project Notes:")
                             appendLine(details.trim())
@@ -251,7 +274,7 @@ internal fun RequestScreen(
                             body = body
                         )
                         statusMessage = if (opened) {
-                            "Ready to send: your email app opened with the build brief."
+                            "Ready to send: your email app opened with a more qualified sales-focused brief."
                         } else {
                             "No email app was available. Please send the same details to $StudioEmail."
                         }
@@ -259,7 +282,7 @@ internal fun RequestScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Open Build Brief Email")
+                Text("Open Qualified Build Brief Email")
             }
         }
     }
@@ -269,11 +292,15 @@ private fun validateBuildBrief(
     clientName: String,
     brandName: String,
     email: String,
+    businessGoal: String,
+    audience: String,
     details: String
 ): String? {
     if (clientName.trim().length < 3) return "Please enter your name."
     if (brandName.trim().length < 2) return "Please enter your brand or company."
     if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) return "Please enter a valid email address."
-    if (details.trim().length < 18) return "Please add a little more detail about the app you want built."
+    if (businessGoal.trim().length < 8) return "Please describe the main business goal."
+    if (audience.trim().length < 4) return "Please describe the target audience."
+    if (details.trim().length < 24) return "Please add more detail about what the app should do and how it should help sales."
     return null
 }

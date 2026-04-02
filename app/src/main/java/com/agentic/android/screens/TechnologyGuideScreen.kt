@@ -26,19 +26,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.AppTechnologyType
 import com.agentic.android.BuildRequestType
 import com.agentic.android.InfoBadge
-import com.agentic.android.KoiScene
 import com.agentic.android.MetricBadge
 import com.agentic.android.PosterArtwork
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
 import com.agentic.android.appTechnologyTypes
-import com.agentic.android.guideKoiSpec
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -72,18 +71,29 @@ private fun GuideHero(layout: ResponsiveLayout) {
                 .fillMaxWidth()
                 .heightIn(min = if (layout.wideLayout) 250.dp else 220.dp)
         ) {
-            KoiScene(spec = guideKoiSpec, modifier = Modifier.matchParentSize())
             Box(
                 modifier = Modifier
                     .matchParentSize()
                     .background(
                         Brush.verticalGradient(
                             listOf(
-                                MaterialTheme.colorScheme.background.copy(alpha = 0.62f),
-                                MaterialTheme.colorScheme.surface.copy(alpha = 0.80f),
-                                MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.98f),
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.94f),
+                                MaterialTheme.colorScheme.background.copy(alpha = 0.92f)
                             )
                         )
+                    )
+            )
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 18.dp, end = 18.dp)
+                    .size(140.dp)
+                    .background(
+                        Brush.radialGradient(
+                            listOf(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.20f), Color.Transparent)
+                        ),
+                        RoundedCornerShape(999.dp)
                     )
             )
             Column(
@@ -96,12 +106,12 @@ private fun GuideHero(layout: ResponsiveLayout) {
                     color = MaterialTheme.colorScheme.tertiary
                 )
                 Text(
-                    text = "Choose the right build approach before we design the final product.",
+                    text = "Choose the right build approach before you invest in the final product.",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "This screen explains native, web, hybrid, progressive web, and cross-platform paths so the category choice and the technical direction stay aligned.",
+                    text = "This screen explains native, web, hybrid, progressive web, and cross-platform paths so the brand direction stays beautiful while the budget and delivery plan stay sensible.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

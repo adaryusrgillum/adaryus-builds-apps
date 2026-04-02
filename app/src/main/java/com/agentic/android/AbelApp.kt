@@ -226,7 +226,7 @@ private fun AdaryusTopBar(layout: ResponsiveLayout, currentScreen: AppScreen) {
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "Fire-koi Android showcase",
+                        text = "Editorial app studio for modern businesses",
                         style = if (layout.compactWidth) MaterialTheme.typography.bodySmall else MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -305,19 +305,14 @@ private fun AdaryusBackdrop(modifier: Modifier = Modifier) {
             )
         )
     ) {
-        ManifestoPhraseWall(
-            phrases = fireManifestoPhrases,
-            opacity = ambientKoiSpec.phraseWallOpacity,
-            modifier = Modifier.matchParentSize()
-        )
         Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(top = 10.dp, end = 10.dp)
-                .size(280.dp)
+                .padding(top = 18.dp, end = 16.dp)
+                .size(320.dp)
                 .background(
                     Brush.radialGradient(
-                        listOf(MaterialTheme.colorScheme.primary.copy(alpha = 0.16f), Color.Transparent)
+                        listOf(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.18f), Color.Transparent)
                     ),
                     CircleShape
                 )
@@ -325,7 +320,19 @@ private fun AdaryusBackdrop(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .size(240.dp)
+                .size(260.dp)
+                .background(
+                    Brush.radialGradient(
+                        listOf(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f), Color.Transparent)
+                    ),
+                    CircleShape
+                )
+        )
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 60.dp, end = 12.dp)
+                .size(220.dp)
                 .background(
                     Brush.radialGradient(
                         listOf(MaterialTheme.colorScheme.secondary.copy(alpha = 0.10f), Color.Transparent)
@@ -333,15 +340,15 @@ private fun AdaryusBackdrop(modifier: Modifier = Modifier) {
                     CircleShape
                 )
         )
-        FireGridOverlay(modifier = Modifier.matchParentSize())
+        StudioBackdropOverlay(modifier = Modifier.matchParentSize())
     }
 }
 
 @Composable
-private fun FireGridOverlay(modifier: Modifier = Modifier) {
+private fun StudioBackdropOverlay(modifier: Modifier = Modifier) {
     val step = with(LocalDensity.current) { 60.dp.toPx() }
     val primaryLine = MaterialTheme.colorScheme.primary.copy(alpha = 0.05f)
-    val secondaryLine = MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f)
+    val secondaryLine = MaterialTheme.colorScheme.secondary.copy(alpha = 0.06f)
     val tertiaryLine = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.08f)
     Canvas(modifier = modifier) {
         var x = 0f
@@ -368,15 +375,15 @@ private fun FireGridOverlay(modifier: Modifier = Modifier) {
 
         drawLine(
             color = secondaryLine,
-            start = Offset(size.width * 0.78f, 0f),
-            end = Offset(size.width * 0.16f, size.height),
-            strokeWidth = 8f
+            start = Offset(size.width * 0.72f, 0f),
+            end = Offset(size.width * 0.18f, size.height),
+            strokeWidth = 6f
         )
         drawLine(
             color = tertiaryLine,
-            start = Offset(size.width, size.height * 0.16f),
-            end = Offset(size.width * 0.32f, size.height),
-            strokeWidth = 4f
+            start = Offset(size.width, size.height * 0.24f),
+            end = Offset(size.width * 0.42f, size.height),
+            strokeWidth = 3f
         )
     }
 }

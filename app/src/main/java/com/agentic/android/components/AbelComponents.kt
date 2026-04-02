@@ -92,7 +92,7 @@ internal fun SectionCard(title: String, content: @Composable ColumnScope.() -> U
                         )
                 )
                 Text(
-                    text = "ADARYUS FIRE POND",
+                    text = "ADARYUS STUDIO",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -659,12 +659,12 @@ private fun PosterMetricCard(modifier: Modifier, title: String, value: String, p
 }
 
 private fun posterPalette(style: PosterStyle): PosterPalette = when (style) {
-    PosterStyle.Community -> PosterPalette(Color(0xFF100C0B), Color(0xFF35140E), Color(0xFFF36A2B), Color(0xFF663226), Color(0xFF1A1110), Color(0xFFF6F1EA))
-    PosterStyle.Productivity -> PosterPalette(Color(0xFF0C0A0A), Color(0xFF2A0D0B), Color(0xFFE1472D), Color(0xFF6A2418), Color(0xFF171010), Color(0xFFF7F2EC))
-    PosterStyle.Entertainment -> PosterPalette(Color(0xFF120C08), Color(0xFF3B1809), Color(0xFFFFA135), Color(0xFF6E3A17), Color(0xFF1C120E), Color(0xFFFFF7EE))
-    PosterStyle.Finance -> PosterPalette(Color(0xFF0A0807), Color(0xFF2C1107), Color(0xFFFFC14A), Color(0xFF705221), Color(0xFF17110E), Color(0xFFFAF3E8))
-    PosterStyle.Education -> PosterPalette(Color(0xFF100908), Color(0xFF31160C), Color(0xFFFF8C2F), Color(0xFF6E3114), Color(0xFF1C110D), Color(0xFFFFF3E6))
-    PosterStyle.Utility -> PosterPalette(Color(0xFF0B0909), Color(0xFF24110B), Color(0xFFE76A25), Color(0xFF5A2A18), Color(0xFF181111), Color(0xFFF8F1EA))
+    PosterStyle.Community -> PosterPalette(Color(0xFFF7F4EF), Color(0xFFE6EDE8), Color(0xFF5A7B70), Color(0xFFC7D5CF), Color(0xFFFFFFFF), Color(0xFF24303A))
+    PosterStyle.Productivity -> PosterPalette(Color(0xFFF5F2EC), Color(0xFFE1E9EE), Color(0xFF5E768A), Color(0xFFCCD8E1), Color(0xFFFFFFFF), Color(0xFF1F2B35))
+    PosterStyle.Entertainment -> PosterPalette(Color(0xFFF9F5EE), Color(0xFFECE2D5), Color(0xFFC1A06A), Color(0xFFE9DCC7), Color(0xFFFFFFFF), Color(0xFF2F2D32))
+    PosterStyle.Finance -> PosterPalette(Color(0xFFF4F2ED), Color(0xFFE6E5DE), Color(0xFF46615B), Color(0xFFC8D4CF), Color(0xFFFFFFFF), Color(0xFF243037))
+    PosterStyle.Education -> PosterPalette(Color(0xFFF7F5F1), Color(0xFFE4EBE6), Color(0xFF7C948A), Color(0xFFD2DDD8), Color(0xFFFFFFFF), Color(0xFF28333A))
+    PosterStyle.Utility -> PosterPalette(Color(0xFFF6F3EE), Color(0xFFE3E6E8), Color(0xFF6E8796), Color(0xFFD5DEE5), Color(0xFFFFFFFF), Color(0xFF24313B))
 }
 
 @Composable
