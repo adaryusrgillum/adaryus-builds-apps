@@ -24,7 +24,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.adaryus.builds"
+        applicationId = "com.agentic.android"
         minSdk = 26
         targetSdk = 34
         versionCode = 100
