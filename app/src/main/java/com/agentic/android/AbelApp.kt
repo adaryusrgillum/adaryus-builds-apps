@@ -23,8 +23,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Dashboard
 import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.SmartToy
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -51,14 +51,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.agentic.android.screens.AssistantScreen
 import com.agentic.android.screens.CategoriesScreen
-import com.agentic.android.screens.HomeScreen
 import com.agentic.android.screens.RequestScreen
 import com.agentic.android.screens.ShowcaseScreen
 import com.agentic.android.screens.TechnologyGuideScreen
 
 internal enum class AppScreen(val label: String, val icon: ImageVector) {
-    Home("Home", Icons.Outlined.Home),
+    Assistant("Assistant", Icons.Outlined.SmartToy),
     Categories("Categories", Icons.Outlined.Dashboard),
     AppTypes("App Types", Icons.Outlined.Code),
     Showcase("Showcase", Icons.Outlined.Palette),
@@ -124,7 +124,7 @@ internal fun rememberResponsiveLayout(): ResponsiveLayout {
 @Composable
 internal fun AdaryusBuildsApp() {
     val layout = rememberResponsiveLayout()
-    var currentScreenName by rememberSaveable { mutableStateOf(AppScreen.Home.name) }
+    var currentScreenName by rememberSaveable { mutableStateOf(AppScreen.Assistant.name) }
     var selectedRequestTypeName by rememberSaveable { mutableStateOf(BuildRequestType.ProductivityBusiness.name) }
 
     val currentScreen = AppScreen.valueOf(currentScreenName)
@@ -154,12 +154,12 @@ internal fun AdaryusBuildsApp() {
                     .align(Alignment.TopCenter)
             ) {
                 when (currentScreen) {
-                    AppScreen.Home -> HomeScreen(
+                    AppScreen.Assistant -> AssistantScreen(
                         layout = layout,
                         onExploreCategories = { currentScreenName = AppScreen.Categories.name },
                         onOpenGuide = { currentScreenName = AppScreen.AppTypes.name },
                         onOpenShowcase = { currentScreenName = AppScreen.Showcase.name },
-                        onRequestBuild = {
+                        onOpenRequest = {
                             selectedRequestTypeName = it.name
                             currentScreenName = AppScreen.Request.name
                         }
