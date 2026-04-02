@@ -1,13 +1,14 @@
 package com.agentic.android.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -20,25 +21,25 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.agentic.android.CoverageGroup
-import com.agentic.android.IntakeRequestType
+import com.agentic.android.AppCategory
+import com.agentic.android.BuildRequestType
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionTitle
-import com.agentic.android.coverageGroups
-import com.agentic.android.launchUriIntent
+import com.agentic.android.appCategories
 
 @Composable
-internal fun CoverageScreen(
+internal fun CategoriesScreen(
     layout: ResponsiveLayout,
-    onStartRequest: (IntakeRequestType) -> Unit
+    onStartRequest: (BuildRequestType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -46,18 +47,18 @@ internal fun CoverageScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        SectionTitle("Coverage Snapshot")
+        SectionTitle("Application Categories")
         Text(
-            text = "Explore the major coverage lanes Abel Insurance Group works in, then launch a native request with the office.",
+            text = "Adaryus Builds can present multiple styles of Android applications inside one clean catalog. Each category below includes image panels, focus areas, and a direct path into the build request flow.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         if (layout.wideLayout) {
-            coverageGroups.chunked(2).forEach { rowItems ->
+            appCategories.chunked(2).forEach { rowItems ->
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                    rowItems.forEach { group ->
-                        CoverageCard(group, Modifier.weight(1f), onStartRequest)
+                    rowItems.forEach { category ->
+                        CategoryCard(category, Modifier.weight(1f), onStartRequest)
                     }
                     if (rowItems.size == 1) {
                         Box(modifier = Modifier.weight(1f))
@@ -65,17 +66,19 @@ internal fun CoverageScreen(
                 }
             }
         } else {
-            coverageGroups.forEach { group ->
-                CoverageCard(group, Modifier.fillMaxWidth(), onStartRequest)
+            appCategories.forEach { category ->
+                CategoryCard(category, Modifier.fillMaxWidth(), onStartRequest)
             }
         }
     }
 }
 
 @Composable
-private fun CoverageCard(group: CoverageGroup, modifier: Modifier, onStartRequest: (IntakeRequestType) -> Unit) {
-    val context = LocalContext.current
-
+private fun CategoryCard(
+    category: AppCategory,
+    modifier: Modifier,
+    onStartRequest: (BuildRequestType) -> Unit
+) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(24.dp),
@@ -84,8 +87,18 @@ private fun CoverageCard(group: CoverageGroup, modifier: Modifier, onStartReques
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            Image(
+                painter = painterResource(id = category.imageRes),
+                contentDescription = category.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(168.dp)
+                    .clip(RoundedCornerShape(20.dp)),
+                contentScale = ContentScale.Crop
+            )
+
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     modifier = Modifier
@@ -93,24 +106,33 @@ private fun CoverageCard(group: CoverageGroup, modifier: Modifier, onStartReques
                         .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(14.dp)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(group.icon, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                    Icon(category.icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 }
                 Column {
-                    Text(group.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    Text(group.summary, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(category.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(category.summary, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            group.items.forEach { item ->
+
+            Text(
+                text = category.accentLabel,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(999.dp))
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.14f))
+                    .padding(horizontal = 10.dp, vertical = 6.dp),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+
+            category.features.forEach { feature ->
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                    Text(item, style = MaterialTheme.typography.bodyMedium)
+                    Text(feature, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
                 }
             }
-            Button(onClick = { onStartRequest(group.requestType) }, modifier = Modifier.fillMaxWidth()) {
-                Text(group.ctaLabel)
-            }
-            OutlinedButton(onClick = { launchUriIntent(context, group.ctaUrl) }, modifier = Modifier.fillMaxWidth()) {
-                Text("View website details")
+
+            Button(onClick = { onStartRequest(category.requestType) }, modifier = Modifier.fillMaxWidth()) {
+                Text("Request This Category")
             }
         }
     }

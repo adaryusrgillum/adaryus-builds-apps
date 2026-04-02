@@ -24,11 +24,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.abelinsgroup.mobile"
+        applicationId = "com.adaryus.builds"
         minSdk = 26
         targetSdk = 34
-        versionCode = 320
-        versionName = "3.2.0"
+        versionCode = 100
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

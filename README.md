@@ -1,29 +1,25 @@
-# Abel Insurance Group Android App
+# Adaryus Builds Apps
 
-Native Android app for Abel Insurance Group, built with Kotlin and Jetpack Compose.
+Neon-cyber Adaryus project with:
 
-## What is in this build
+- A Jetpack Compose Android app branded as `Adaryus Builds Apps`
+- A matching static webapp at [`web/index.html`](/c:/Users/adary/Downloads/APK/web/index.html)
+- Shared dark neon styling inspired by the selected theme at `C:\Users\adary\Desktop\adaryus-themes\theme1-neon-cyber.html`
 
-- Bottom navigation with dedicated Home, Coverage, Service, and Contact screens
-- Native in-app quote/contact form instead of relying on website quote/contact pages
-- Website-aligned home screen with the real Abel wordmark, favicon, and site palette
-- Abel-specific photography integrated into the app experience
-- Texture-backed hero styling inspired by the live Abel website
-- Coverage sections for personal, business, and industry insurance
-- Quick actions for quote request, phone, email, and client portal access
-- In-app service center webview for:
-  - Client portal only
-- Buckhannon office contact information, directions, and social links
-- Hardened release build with dedicated release signing, minification, and resource shrinking
+## Current project shape
 
-## Build details
+- Android app categories for business systems, storefronts, media hubs, utility tools, learning apps, and secure platforms
+- Neon cyan, purple, and green cyber theme across launcher assets, cards, hero sections, and motion accents
+- Build request screen that prepares an email brief from inside the app
+- Static one-page web experience with the same visual direction and product categories
 
-- Application ID: `com.abelinsgroup.mobile`
-- Min SDK: 26
-- Target SDK: 34
-- Version: `3.2.0`
+## Key paths
 
-## Build locally
+- Android source: [`app/src/main/java/com/agentic/android`](/c:/Users/adary/Downloads/APK/app/src/main/java/com/agentic/android)
+- Android resources: [`app/src/main/res`](/c:/Users/adary/Downloads/APK/app/src/main/res)
+- Web app entry: [`web/index.html`](/c:/Users/adary/Downloads/APK/web/index.html)
+
+## Build Android locally
 
 On Windows PowerShell:
 
@@ -31,31 +27,24 @@ On Windows PowerShell:
 $env:JAVA_HOME='c:\Users\adary\Downloads\APK\tooling\jdk-17.0.18+8'
 $env:ANDROID_HOME='c:\Users\adary\Downloads\APK\tooling\android-sdk'
 $env:ANDROID_SDK_ROOT='c:\Users\adary\Downloads\APK\tooling\android-sdk'
-.\gradlew.bat assembleRelease
+$env:GRADLE_USER_HOME='c:\Users\adary\Downloads\APK\.gradle-user-home'
+.\tooling\gradle-8.7\bin\gradle.bat assembleRelease
 ```
 
-## Release artifact
+Expected release output when the build completes:
 
-The signed installable APK produced for this release is:
+- `app/build/outputs/apk/release/app-release.apk`
 
-- `app/build/outputs/apk/release/abel-insurance-group-3.2.0.apk`
+## Open the web app
 
-## Notes
+Open [`web/index.html`](/c:/Users/adary/Downloads/APK/web/index.html) in a browser.
 
-- The release APK is signed with a dedicated local release keystore configured through ignored `local.properties` values.
-- Abel Insurance Group site links and contact flows are used as in-app destinations for the service center webview.
-- Version 3.2.0 adds bottom navigation, native intake flows, and hardened release signing.
+## Latest build result
 
-## Project structure
+The release build completed successfully on April 1, 2026.
 
-```text
-app/src/main/java/com/agentic/android/
-├── MainActivity.kt
-└── ui/theme/
+- APK: `app/build/outputs/apk/release/app-release.apk`
 
-app/src/main/res/
-├── drawable/
-├── drawable-nodpi/
-├── mipmap-anydpi-v26/
-└── values/
-```
+## Note On Capacitor Commands
+
+The current repo is a native Android/Jetpack Compose project plus a static web page in `web/`. It is not a Capacitor project yet, so commands like `npm run build`, `npx cap sync android`, and `npx cap open android` do not apply to this workspace unless we intentionally convert the web app into a Capacitor app later.

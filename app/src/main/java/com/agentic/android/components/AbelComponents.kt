@@ -10,7 +10,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -41,8 +41,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 internal fun SectionCard(title: String, content: @Composable ColumnScope.() -> Unit) {
     Card(
         shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f)),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.22f))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -50,12 +50,24 @@ internal fun SectionCard(title: String, content: @Composable ColumnScope.() -> U
         ) {
             Box(
                 modifier = Modifier
-                    .width(58.dp)
-                    .height(4.dp)
-                    .background(MaterialTheme.colorScheme.secondary, androidx.compose.foundation.shape.RoundedCornerShape(999.dp))
+                    .width(76.dp)
+                    .height(5.dp)
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.primary,
+                                MaterialTheme.colorScheme.secondary
+                            )
+                        ),
+                        androidx.compose.foundation.shape.RoundedCornerShape(999.dp)
+                    )
             )
-            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            HorizontalDivider()
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.SemiBold
+            )
+            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.18f))
             content()
         }
     }
@@ -65,8 +77,8 @@ internal fun SectionCard(title: String, content: @Composable ColumnScope.() -> U
 internal fun SectionTitle(title: String) {
     Text(
         title,
-        style = MaterialTheme.typography.titleMedium,
-        fontWeight = FontWeight.SemiBold,
+        style = MaterialTheme.typography.headlineSmall,
+        fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.onBackground
     )
 }
@@ -75,10 +87,13 @@ internal fun SectionTitle(title: String) {
 internal fun InfoBadge(text: String) {
     Box(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.secondaryContainer, androidx.compose.foundation.shape.RoundedCornerShape(999.dp))
+            .background(
+                MaterialTheme.colorScheme.primary.copy(alpha = 0.16f),
+                androidx.compose.foundation.shape.RoundedCornerShape(999.dp)
+            )
             .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
-        Text(text, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSecondaryContainer)
+        Text(text, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurface)
     }
 }
 
@@ -106,8 +121,8 @@ internal fun ActionCard(action: ActionItem, modifier: Modifier = Modifier, onCli
     Card(
         modifier = modifier,
         shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.78f)),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.18f))
     ) {
         Column(
             modifier = Modifier.padding(14.dp),
@@ -119,9 +134,9 @@ internal fun ActionCard(action: ActionItem, modifier: Modifier = Modifier, onCli
                     .background(MaterialTheme.colorScheme.primaryContainer, androidx.compose.foundation.shape.RoundedCornerShape(14.dp)),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(action.icon, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                Icon(action.icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
             }
-            Text(action.title, fontWeight = FontWeight.SemiBold)
+            Text(action.title, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
             Text(action.summary, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             OutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
                 Text(action.buttonLabel)
@@ -149,7 +164,7 @@ internal fun ActionRow(
 internal fun ContactRow(icon: androidx.compose.ui.graphics.vector.ImageVector, text: String) {
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
         Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-        Text(text, style = MaterialTheme.typography.bodyMedium)
+        Text(text, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
     }
 }
 
@@ -206,7 +221,7 @@ internal fun launchUriIntent(context: Context, target: String) {
     }
 }
 
-internal fun launchEmailDraft(context: Context, subject: String, body: String, recipient: String = OfficeEmail): Boolean {
+internal fun launchEmailDraft(context: Context, subject: String, body: String, recipient: String = StudioEmail): Boolean {
     val mailtoIntent = Intent(Intent.ACTION_SENDTO).apply {
         data = Uri.parse("mailto:$recipient")
         putExtra(Intent.EXTRA_SUBJECT, subject)
@@ -223,7 +238,7 @@ internal fun launchEmailDraft(context: Context, subject: String, body: String, r
             putExtra(Intent.EXTRA_SUBJECT, subject)
             putExtra(Intent.EXTRA_TEXT, body)
         }
-        context.startActivity(Intent.createChooser(fallbackIntent, "Send request"))
+        context.startActivity(Intent.createChooser(fallbackIntent, "Send build brief"))
         true
     }.getOrElse {
         false

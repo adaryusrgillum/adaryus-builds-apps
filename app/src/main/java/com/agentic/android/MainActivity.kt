@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AgenticAndroidTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    AbelInsuranceApp()
+                    AdaryusBuildsApp()
                 }
             }
         }

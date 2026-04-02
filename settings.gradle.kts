@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AgenticAndroid"
+rootProject.name = "AdaryusBuilds"
 include(":app")

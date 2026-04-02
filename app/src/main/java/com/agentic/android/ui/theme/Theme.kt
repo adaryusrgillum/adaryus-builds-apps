@@ -5,21 +5,21 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val LightColors = lightColorScheme(
-    primary = AbelLogoBlue,
-    onPrimary = AbelSurface,
-    primaryContainer = AbelNavy,
-    onPrimaryContainer = AbelSurface,
-    secondary = AbelTaupe,
-    onSecondary = AbelSurface,
-    secondaryContainer = AbelWarmPanel,
-    onSecondaryContainer = AbelNavy,
-    background = AbelCanvas,
-    onBackground = AbelNavy,
-    surface = AbelSurface,
-    onSurface = AbelNavy,
-    surfaceVariant = AbelMist,
-    onSurfaceVariant = AbelTaupe,
-    outline = AbelTaupe
+    primary = AdaryusNeonCyan,
+    onPrimary = AdaryusDarker,
+    primaryContainer = AdaryusSteel,
+    onPrimaryContainer = AdaryusWhite,
+    secondary = AdaryusNeonPurple,
+    onSecondary = AdaryusWhite,
+    secondaryContainer = AdaryusDarker,
+    onSecondaryContainer = AdaryusWhite,
+    background = AdaryusDark,
+    onBackground = AdaryusWhite,
+    surface = AdaryusSteel,
+    onSurface = AdaryusWhite,
+    surfaceVariant = AdaryusDarker,
+    onSurfaceVariant = AdaryusMist,
+    outline = AdaryusGray
 )
 
 @Composable
