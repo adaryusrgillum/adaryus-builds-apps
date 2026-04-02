@@ -18,7 +18,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PhoneAndroid
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
@@ -46,8 +48,13 @@ import com.agentic.android.ResponsivePair
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
 import com.agentic.android.StudioAvailability
+import com.agentic.android.StudioBusiness
 import com.agentic.android.StudioDeliveryNote
 import com.agentic.android.StudioEmail
+import com.agentic.android.StudioLocation
+import com.agentic.android.StudioOwner
+import com.agentic.android.StudioPhone
+import com.agentic.android.StudioPortfolio
 import com.agentic.android.StudioStyleNote
 import com.agentic.android.launchEmailDraft
 import com.agentic.android.launchUriIntent
@@ -99,16 +106,51 @@ internal fun RequestScreen(
         }
 
         SectionCard(title = "Studio Positioning") {
+            ContactRow(Icons.Outlined.Person, StudioOwner)
             ContactRow(Icons.Outlined.Email, StudioEmail)
-            ContactRow(Icons.Outlined.PhoneAndroid, StudioAvailability)
+            ContactRow(Icons.Outlined.PhoneAndroid, StudioPhone)
+            ContactRow(Icons.Outlined.Apps, StudioBusiness)
+            ContactRow(Icons.Outlined.Language, "$StudioLocation • AdvertiseWV.com • Adaryus.com")
             ContactRow(Icons.Outlined.Palette, StudioStyleNote)
             ContactRow(Icons.Outlined.Apps, StudioDeliveryNote)
+            ContactRow(Icons.Outlined.Language, StudioPortfolio)
+            ContactRow(Icons.Outlined.PhoneAndroid, StudioAvailability)
 
-            OutlinedButton(onClick = { launchUriIntent(context, "mailto:$StudioEmail") }, modifier = Modifier.fillMaxWidth()) {
-                Icon(Icons.Outlined.Email, contentDescription = null)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Email The Studio")
-            }
+            ResponsivePair(
+                stacked = !layout.formTwoColumn,
+                first = { modifier ->
+                    OutlinedButton(onClick = { launchUriIntent(context, "mailto:$StudioEmail") }, modifier = modifier) {
+                        Icon(Icons.Outlined.Email, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Email Adaryus")
+                    }
+                },
+                second = { modifier ->
+                    OutlinedButton(onClick = { launchUriIntent(context, "tel:6818372078") }, modifier = modifier) {
+                        Icon(Icons.Outlined.PhoneAndroid, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Call Adaryus")
+                    }
+                }
+            )
+
+            ResponsivePair(
+                stacked = !layout.formTwoColumn,
+                first = { modifier ->
+                    OutlinedButton(onClick = { launchUriIntent(context, "https://advertisewv.com") }, modifier = modifier) {
+                        Icon(Icons.Outlined.Language, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Open AdvertiseWV")
+                    }
+                },
+                second = { modifier ->
+                    OutlinedButton(onClick = { launchUriIntent(context, "https://adaryus.com") }, modifier = modifier) {
+                        Icon(Icons.Outlined.Language, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Open Adaryus.com")
+                    }
+                }
+            )
         }
 
         SectionCard(title = "Qualified Project Brief") {

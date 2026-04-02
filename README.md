@@ -1,15 +1,26 @@
 # Adaryus Builds Apps
 
-Neon-cyber Adaryus project with:
+Editorial Adaryus project with:
 
 - A Jetpack Compose Android app branded as Adaryus Builds Apps
 - A matching static web app in web/index.html
-- Shared dark neon styling inspired by the selected theme
+- Shared editorial premium styling and updated AI/business positioning
+
+## Owner and contact
+
+- Owner: Adaryus Gillum
+- Location: West Virginia
+- Email: adaryus@mail.com
+- Phone: 681-837-2078
+- Business: AdvertiseWV
+- Business site: https://advertisewv.com
+- Portfolio showcase: https://adaryus.com
 
 ## Project shape
 
 - Android app categories for business systems, storefronts, media hubs, utility tools, learning apps, and secure platforms
-- Neon cyan, purple, and green cyber theme across launcher assets, cards, hero sections, and motion accents
+- Softer editorial visual system with refined typography, calmer color, and buyer-focused messaging
+- AI strategy section covering practical themes like local models, agent workflows, edge AI, voice, and security
 - Build request screen that prepares an email brief from inside the app
 - Static one-page web experience with the same visual direction and product categories
 
@@ -40,6 +51,10 @@ Expected release output:
 ## Open the web app
 
 Open web/index.html in a browser.
+
+## Note on Adaryus.com
+
+This repository can reference Adaryus.com as the portfolio/showcase, but it does not contain the source code for Adaryus.com itself. If you want that site fixed directly, I’ll need the website files or the repo that powers it.
 
 ## Important note
 

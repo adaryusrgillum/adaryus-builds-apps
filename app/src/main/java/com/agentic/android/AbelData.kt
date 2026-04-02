@@ -26,7 +26,12 @@ import androidx.compose.material.icons.outlined.TrendingUp
 import androidx.compose.material.icons.outlined.Water
 import androidx.compose.ui.graphics.vector.ImageVector
 
-internal const val StudioEmail = "hello@adaryusbuilds.app"
+internal const val StudioEmail = "adaryus@mail.com"
+internal const val StudioPhone = "681-837-2078"
+internal const val StudioOwner = "Adaryus Gillum"
+internal const val StudioLocation = "West Virginia"
+internal const val StudioBusiness = "Owner of AdvertiseWV and AdvertiseWV.com"
+internal const val StudioPortfolio = "Adaryus.com showcases websites created by Adaryus Gillum."
 internal const val StudioAvailability =
     "Sales-focused Android, web, and cross-platform builds for phones, foldables, tablets, and launch campaigns."
 internal const val StudioStyleNote =
@@ -187,6 +192,17 @@ internal data class AiUpdate(
     val summary: String,
     val sourceLabel: String,
     val icon: ImageVector
+)
+
+internal data class LiveSiteProject(
+    val title: String,
+    val domain: String,
+    val repoName: String,
+    val repoUrl: String,
+    val liveUrl: String,
+    val summary: String,
+    val deploymentType: String,
+    val tags: List<String>
 )
 
 internal val appCategories = listOf(
@@ -485,6 +501,59 @@ internal val aiUpdates = listOf(
         summary = "As agents gain access to tools and data, zero-trust thinking matters more. The safer product is the one that assumes access should be explicit, scoped, and monitored.",
         sourceLabel = "Verified with IBM zero-trust guidance",
         icon = Icons.Outlined.Security
+    )
+)
+
+internal val liveSiteProjects = listOf(
+    LiveSiteProject(
+        title = "Adaryus.com",
+        domain = "adaryus.com",
+        repoName = "adaryus",
+        repoUrl = "https://github.com/adaryusrgillum/adaryus",
+        liveUrl = "https://adaryus.com",
+        summary = "Flagship portfolio and professional showcase site with a custom domain mapped through GitHub Pages.",
+        deploymentType = "CNAME + custom domain",
+        tags = listOf("Portfolio", "Showcase", "Custom domain")
+    ),
+    LiveSiteProject(
+        title = "Adaryus 2.0",
+        domain = "adaryus.com",
+        repoName = "Adaryus2.0",
+        repoUrl = "https://github.com/adaryusrgillum/Adaryus2.0",
+        liveUrl = "https://adaryus.com",
+        summary = "React and TypeScript rebuild branch for the Adaryus portfolio, kept as a next-generation version of the same showcase.",
+        deploymentType = "CNAME rebuild branch",
+        tags = listOf("React", "TypeScript", "Rebuild")
+    ),
+    LiveSiteProject(
+        title = "AdvertiseWV",
+        domain = "advertisewv.com",
+        repoName = "ai-marketing-agency",
+        repoUrl = "https://github.com/adaryusrgillum/ai-marketing-agency",
+        liveUrl = "https://advertisewv.com",
+        summary = "Marketing and business-facing site tied to your AdvertiseWV brand, deployed with a custom domain from GitHub.",
+        deploymentType = "CNAME + custom domain",
+        tags = listOf("Agency", "Marketing", "Business")
+    ),
+    LiveSiteProject(
+        title = "Abel Insurance Group",
+        domain = "adaryusrgillum.github.io/AbelInsuranceGroup",
+        repoName = "AbelInsuranceGroup",
+        repoUrl = "https://github.com/adaryusrgillum/AbelInsuranceGroup",
+        liveUrl = "https://adaryusrgillum.github.io/AbelInsuranceGroup/",
+        summary = "Published GitHub Pages deployment showing a client-facing insurance web build in your portfolio orbit.",
+        deploymentType = "GitHub Pages",
+        tags = listOf("Client build", "Pages", "Insurance")
+    ),
+    LiveSiteProject(
+        title = "Flexbands",
+        domain = "adaryusrgillum.github.io/Flexbands",
+        repoName = "Multimediapros",
+        repoUrl = "https://github.com/adaryusrgillum/Multimediapros",
+        liveUrl = "https://adaryusrgillum.github.io/Flexbands/",
+        summary = "Another deployment path referenced through the repo’s GitHub Pages docs, useful as a portfolio entry for branded web work.",
+        deploymentType = "GitHub Pages path",
+        tags = listOf("Brand site", "Pages", "Media")
     )
 )
 

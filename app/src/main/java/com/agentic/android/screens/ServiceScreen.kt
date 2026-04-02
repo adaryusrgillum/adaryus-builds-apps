@@ -19,21 +19,26 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.agentic.android.BuildRequestType
 import com.agentic.android.InfoBadge
+import com.agentic.android.LiveSiteProject
 import com.agentic.android.PosterArtwork
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
 import com.agentic.android.buildPhases
+import com.agentic.android.launchUriIntent
+import com.agentic.android.liveSiteProjects
 import com.agentic.android.showcaseCards
 
 @Composable
@@ -49,6 +54,7 @@ internal fun ShowcaseScreen(
     ) {
         ShowcaseHero(layout, onOpenRequest)
         ShowcaseCardsSection(layout, onOpenRequest)
+        LiveSitesSection(layout)
         BuildPhasesSection(onOpenRequest)
     }
 }
@@ -170,6 +176,82 @@ private fun ShowcaseCard(
             }
             Button(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
                 Text("Use This Direction")
+            }
+        }
+    }
+}
+
+@Composable
+private fun LiveSitesSection(layout: ResponsiveLayout) {
+    val context = LocalContext.current
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        SectionTitle("Live Sites From GitHub Pages And CNAME")
+        Text(
+            text = "These projects were pulled from repos in your GitHub account that show GitHub Pages deployment or custom-domain CNAME usage, so the app can present your actual web footprint as part of the Adaryus story.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        if (layout.wideLayout) {
+            liveSiteProjects.chunked(2).forEach { rowItems ->
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                    rowItems.forEach { item ->
+                        LiveSiteCard(
+                            item = item,
+                            modifier = Modifier.weight(1f),
+                            onOpenSite = { launchUriIntent(context, item.liveUrl) },
+                            onOpenRepo = { launchUriIntent(context, item.repoUrl) }
+                        )
+                    }
+                    if (rowItems.size == 1) Box(modifier = Modifier.weight(1f))
+                }
+            }
+        } else {
+            liveSiteProjects.forEach { item ->
+                LiveSiteCard(
+                    item = item,
+                    modifier = Modifier.fillMaxWidth(),
+                    onOpenSite = { launchUriIntent(context, item.liveUrl) },
+                    onOpenRepo = { launchUriIntent(context, item.repoUrl) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun LiveSiteCard(
+    item: LiveSiteProject,
+    modifier: Modifier,
+    onOpenSite: () -> Unit,
+    onOpenRepo: () -> Unit
+) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.16f))
+    ) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(
+                text = "${item.deploymentType} • ${item.repoName}",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(item.summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                InfoBadge(item.domain)
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                item.tags.take(2).forEach { tag -> InfoBadge(tag) }
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                Button(onClick = onOpenSite, modifier = Modifier.weight(1f)) {
+                    Text("Open Site")
+                }
+                OutlinedButton(onClick = onOpenRepo, modifier = Modifier.weight(1f)) {
+                    Text("Open Repo")
+                }
             }
         }
     }
