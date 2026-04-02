@@ -33,6 +33,7 @@ import com.agentic.android.BuildRequestType
 import com.agentic.android.InfoBadge
 import com.agentic.android.LiveSiteProject
 import com.agentic.android.PosterArtwork
+import com.agentic.android.PortalWebView
 import com.agentic.android.ResponsiveLayout
 import com.agentic.android.SectionCard
 import com.agentic.android.SectionTitle
@@ -237,6 +238,15 @@ private fun LiveSiteCard(
                 text = "${item.deploymentType} • ${item.repoName}",
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Live preview",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            PortalWebView(
+                url = item.liveUrl,
+                height = 220.dp
             )
             Text(item.summary, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {

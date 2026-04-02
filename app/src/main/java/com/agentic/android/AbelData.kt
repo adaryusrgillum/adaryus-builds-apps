@@ -546,14 +546,14 @@ internal val liveSiteProjects = listOf(
         tags = listOf("Client build", "Pages", "Insurance")
     ),
     LiveSiteProject(
-        title = "Flexbands",
-        domain = "adaryusrgillum.github.io/Flexbands",
-        repoName = "Multimediapros",
-        repoUrl = "https://github.com/adaryusrgillum/Multimediapros",
-        liveUrl = "https://adaryusrgillum.github.io/Flexbands/",
-        summary = "Another deployment path referenced through the repo’s GitHub Pages docs, useful as a portfolio entry for branded web work.",
-        deploymentType = "GitHub Pages path",
-        tags = listOf("Brand site", "Pages", "Media")
+        title = "Mountaineer Dynamics Institute",
+        domain = "mountaineerdynamicsinstitute.com",
+        repoName = "mountaineerdynamicsinstitute",
+        repoUrl = "https://github.com/adaryusrgillum/mountaineerdynamicsinstitute",
+        liveUrl = "https://mountaineerdynamicsinstitute.com",
+        summary = "Live education and institute website tied to its own repo, with a real production domain and a matching Android wrapper project in your GitHub account.",
+        deploymentType = "Production domain",
+        tags = listOf("Institute", "Education", "Live site")
     )
 )
 
